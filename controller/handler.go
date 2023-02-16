@@ -15,13 +15,13 @@ func init() {
 }
 
 type Handlers struct {
-	article water.Handler
+	listArticle water.Handler
 }
 
 func NewService() *Handlers {
 	conf := &water.Config{Encoding: "console", Level: zap.InfoLevel}
 	option := water.ServerConfig(conf)
 	return &Handlers{
-		article: water.NewHandler(&service.ArticleService{ServerBase: &water.ServerBase{}}, option),
+		listArticle: water.NewHandler(&service.ListArticleService{ServerBase: &water.ServerBase{}}, option),
 	}
 }

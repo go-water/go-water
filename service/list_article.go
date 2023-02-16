@@ -7,15 +7,15 @@ import (
 	"github.com/go-water/water"
 )
 
-type ArticleRequest struct {
+type ListArticleRequest struct {
 	Size int `json:"size"`
 }
 
-type ArticleService struct {
+type ListArticleService struct {
 	*water.ServerBase
 }
 
-func (srv *ArticleService) Handle(ctx context.Context, req *ArticleRequest) (interface{}, error) {
+func (srv *ListArticleService) Handle(ctx context.Context, req *ListArticleRequest) (interface{}, error) {
 	result, err := model.ListArticles(model.DbMap)
 	if err != nil {
 		return nil, err
@@ -24,9 +24,9 @@ func (srv *ArticleService) Handle(ctx context.Context, req *ArticleRequest) (int
 	return result, nil
 }
 
-func (srv *ArticleService) Endpoint() water.Endpoint {
+func (srv *ListArticleService) Endpoint() water.Endpoint {
 	return func(ctx context.Context, req interface{}) (interface{}, error) {
-		if r, ok := req.(*ArticleRequest); ok {
+		if r, ok := req.(*ListArticleRequest); ok {
 			return srv.Handle(ctx, r)
 		} else {
 			return nil, errors.New("request type error")
@@ -34,6 +34,6 @@ func (srv *ArticleService) Endpoint() water.Endpoint {
 	}
 }
 
-func (srv *ArticleService) Name() string {
+func (srv *ListArticleService) Name() string {
 	return srv.ServerBase.Name(srv)
 }

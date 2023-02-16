@@ -14,7 +14,7 @@ func Start() {
 	tmpl.Reload(true)
 	app.RegisterView(tmpl)
 
-	app.Get("/", H.GetArticleList)
+	app.Get("/", H.ListArticle)
 
 	app.Run(
 		iris.Addr(":80"),

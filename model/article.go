@@ -8,7 +8,7 @@ import (
 
 type Article struct {
 	Id         int           `json:"id" db:"id"`
-	UrlID      string        `json:"id" db:"url_id"`
+	UrlID      string        `json:"url_id" db:"url_id"`
 	Title      string        `json:"title" db:"title"`
 	Icon       string        `json:"icon" db:"icon"`
 	Brief      string        `json:"brief" db:"brief"`

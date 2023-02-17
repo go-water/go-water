@@ -17,6 +17,8 @@ func Start() {
 	app.Get("/", H.ListArticle)
 	app.Get("/article/{id}", H.GetArticle)
 	app.Get("/reward", H.Reward)
+	app.Get("/about", H.About)
+	app.Get("/link", H.Link)
 
 	app.Run(
 		iris.Addr(":80"),

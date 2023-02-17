@@ -3,19 +3,23 @@ package controller
 import (
 	"context"
 	"github.com/go-water/go-water/service"
+	"github.com/gomarkdown/markdown"
 	"github.com/kataras/iris/v12"
+	"html/template"
+	"io/ioutil"
 )
 
 func (h *Handlers) Index(ctx iris.Context) {
-	req := new(service.ListArticleRequest)
-	resp, err := h.listArticle.ServerWater(context.Background(), req)
+	mdBytes, err := ioutil.ReadFile("./content/index.md")
 	if err != nil {
 		ctx.EndRequest()
 	}
 
+	resp := markdown.ToHTML(mdBytes, nil, nil)
+	result := template.HTML(resp)
 	ctx.ViewData("title", "爱斯园 - Golang 学习网站")
-	ctx.ViewData("body", resp)
-	ctx.View("articles.html")
+	ctx.ViewData("body", result)
+	ctx.View("index.html")
 }
 
 func (h *Handlers) ListArticle(ctx iris.Context) {

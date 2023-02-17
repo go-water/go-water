@@ -4,7 +4,7 @@ go 1.17
 
 require (
 	github.com/go-gorp/gorp/v3 v3.0.2
-	github.com/go-sql-driver/mysql v1.6.0
+	github.com/go-sql-driver/mysql v1.7.0
 	github.com/go-water/water v0.0.21
 	github.com/google/uuid v1.3.0
 	github.com/kataras/iris/v12 v12.1.8
@@ -45,7 +45,6 @@ require (
 	github.com/moul/http2curl v1.0.0 // indirect
 	github.com/niemeyer/pretty v0.0.0-20200227124842-a10e7caefd8e // indirect
 	github.com/pelletier/go-toml/v2 v2.0.6 // indirect
-	github.com/rogpeppe/go-internal v1.9.0 // indirect
 	github.com/ryanuber/columnize v2.1.0+incompatible // indirect
 	github.com/schollz/closestmatch v2.1.0+incompatible // indirect
 	github.com/sergi/go-diff v1.3.1 // indirect

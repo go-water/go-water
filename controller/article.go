@@ -13,7 +13,7 @@ func (h *Handlers) ListArticle(ctx iris.Context) {
 		ctx.EndRequest()
 	}
 
-	ctx.ViewData("title", "文章列表")
+	ctx.ViewData("title", "爱斯园 - Golang 学习网站")
 	ctx.ViewData("body", resp)
 	ctx.View("articles.html")
 }

@@ -16,6 +16,7 @@ func init() {
 
 type Handlers struct {
 	listArticle water.Handler
+	getArticle  water.Handler
 }
 
 func NewService() *Handlers {
@@ -23,5 +24,6 @@ func NewService() *Handlers {
 	option := water.ServerConfig(conf)
 	return &Handlers{
 		listArticle: water.NewHandler(&service.ListArticleService{ServerBase: &water.ServerBase{}}, option),
+		getArticle:  water.NewHandler(&service.GetArticleService{ServerBase: &water.ServerBase{}}, option),
 	}
 }

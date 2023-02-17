@@ -23,11 +23,26 @@ type Article struct {
 
 func ListArticles(db gorp.SqlExecutor) ([]*Article, error) {
 	result := make([]*Article, 0)
-	sql := "select url_id,title,icon,brief,create_time from article ORDER BY id DESC;"
+	sql := "SELECT url_id,title,icon,brief,create_time FROM article ORDER BY id DESC;"
 	_, err := db.Select(&result, sql)
 	if err != nil {
 		return nil, err
 	}
 
 	return result, err
+}
+
+func GetArticle(db gorp.SqlExecutor, urlID string) (*Article, error) {
+	result := make([]*Article, 0)
+	sql := "SELECT url_id,title,visited,icon,brief,body,create_time FROM article WHERE url_id=?;"
+	_, err := db.Select(&result, sql, urlID)
+	if err != nil {
+		return nil, err
+	}
+
+	if len(result) == 0 {
+		return nil, nil
+	} else {
+		return result[0], nil
+	}
 }

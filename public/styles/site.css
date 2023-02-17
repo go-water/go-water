@@ -127,8 +127,6 @@ a {
     vertical-align: middle;
     margin: 0;
     padding: 0;
-    height: 30px;
-    line-height: 30px;
     font-size: 14px;
     color: #000;
     text-align: left;
@@ -146,10 +144,9 @@ a {
 
 .pay-item {
     position: relative;
-    display: inline-block;
-    vertical-align: top;
-    padding: 0 0 8px;
-    line-height: 20px;
+    display: flex;
+    align-items: center;
+    height: 30px;
 }
 
 #hot, #frontend, #backend, #common, #article, #other, #soft {
@@ -263,4 +260,11 @@ a {
 
 .cke_contents_ltr .body hr {
     margin-top: 5px;
+}
+
+.col-4 {
+    flex: 0 0 auto;
+    width: 33%;
+    padding: 5px 0 5px 30px;
+    border-bottom: 1px solid #eeeeee;
 }

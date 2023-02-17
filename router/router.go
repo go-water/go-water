@@ -15,6 +15,8 @@ func Start() {
 	app.RegisterView(tmpl)
 
 	app.Get("/", H.ListArticle)
+	app.Get("/article/{id}", H.GetArticle)
+	app.Get("/reward", H.Reward)
 
 	app.Run(
 		iris.Addr(":80"),

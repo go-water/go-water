@@ -3,7 +3,6 @@ package helpers
 import (
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
-	"gopkg.in/natefinch/lumberjack.v2"
 	"os"
 )
 
@@ -11,7 +10,6 @@ type Config struct {
 	Level      string `yaml:"level"`
 	Encoding   string `yaml:"encoding"`
 	CallFull   bool   `yaml:"call_full"`
-	Filename   string `yaml:"file_name"`
 	MaxSize    int    `yaml:"max_size"`
 	MaxAge     int    `yaml:"max_age"`
 	MaxBackups int    `yaml:"max_backups"`
@@ -59,28 +57,11 @@ func (conf *Config) NewLogger() *zap.Logger {
 		encoder = zapcore.NewConsoleEncoder(encoderConfig)
 	}
 
-	if conf.Filename == "" {
-		newCore := zapcore.NewCore(
-			encoder,
-			zapcore.AddSync(zapcore.AddSync(os.Stdout)),
-			zap.NewAtomicLevelAt(convertLogLevel(conf.Level)))
-		l := zap.New(newCore, opts...)
-		return l
-	}
-
-	zapWriter := zapcore.AddSync(&lumberjack.Logger{
-		Filename:   conf.Filename,
-		MaxSize:    conf.MaxSize,
-		MaxAge:     conf.MaxAge,
-		MaxBackups: conf.MaxBackups,
-		LocalTime:  conf.LocalTime,
-		Compress:   conf.Compress,
-	})
-
 	newCore := zapcore.NewCore(
 		encoder,
-		zapcore.NewMultiWriteSyncer(zapWriter, zapcore.AddSync(os.Stdout)),
+		zapcore.AddSync(zapcore.AddSync(os.Stdout)),
 		zap.NewAtomicLevelAt(convertLogLevel(conf.Level)))
 	l := zap.New(newCore, opts...)
+
 	return l
 }

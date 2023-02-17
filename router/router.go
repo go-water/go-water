@@ -15,6 +15,7 @@ func Start() {
 	app.RegisterView(tmpl)
 
 	app.Get("/", H.ListArticle)
+	app.Get("/articles", H.ListArticle)
 	app.Get("/article/{id}", H.GetArticle)
 	app.Get("/reward", H.Reward)
 	app.Get("/about", H.About)

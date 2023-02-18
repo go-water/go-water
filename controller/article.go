@@ -17,7 +17,7 @@ func (h *Handlers) Index(ctx iris.Context) {
 
 	resp := markdown.ToHTML(mdBytes, nil, nil)
 	result := template.HTML(resp)
-	ctx.ViewData("title", "爱斯园 - Golang 学习网站")
+	ctx.ViewData("title", "爱斯园 - go-water 官方网站")
 	ctx.ViewData("body", result)
 	ctx.View("index.html")
 }
@@ -29,7 +29,7 @@ func (h *Handlers) ListArticle(ctx iris.Context) {
 		ctx.EndRequest()
 	}
 
-	ctx.ViewData("title", "爱斯园 - Golang 学习网站")
+	ctx.ViewData("title", "文档")
 	ctx.ViewData("body", resp)
 	ctx.View("articles.html")
 }

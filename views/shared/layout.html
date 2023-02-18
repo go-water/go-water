@@ -11,12 +11,12 @@
     {{ part "title" }}
 </head>
 <body spellcheck="false">
-<div style="display:flex;flex-direction: column;margin:0 auto 0 auto;max-width: 1300px;height: 100%;">
+<div class="d-flex flex-column h-100" style="margin:0 auto 0 auto;max-width: 1300px;">
 {{ render "shared/_toper.html"}}
-<div style="flex:1;width: 100%;background: #ffffff;" id="main">
+<div class="flex-fill w-100 bg-white" id="main">
     {{ yield }}
 </div>
-<div style="width: 100%;" id="footer">
+<div class="w-100" id="footer">
     {{render "shared/_footer.html"}}
 </div>
 </div>

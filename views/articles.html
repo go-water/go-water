@@ -2,23 +2,23 @@
     <title>{{.title}}</title>
 {{ end }}
 
-<div style="background-color:#ffffff;">
+<div class="bg-white">
     {{range .body}}
-        <div style="overflow: hidden;padding: 0;margin-left:3%;margin-right:3%;border-bottom: 1px solid #eeeeee;">
-            <div style="float:left;display: table;margin: 20px 30px 20px 0;">
-                <img class="lazy" src="/placeholder.jpg" data-original="{{.Icon}}" width="180" height="110">
+    <div class="d-flex flex-row mx-4 border-bottom">
+        <div class="py-4">
+            <img class="lazy" src="/placeholder.jpg" data-original="{{.Icon}}" width="180" height="110">
+        </div>
+        <div class="flex-fill p-4">
+            <div>
+                <a href="/article/{{.UrlID}}" style="font-size:18px;font-weight:bold;letter-spacing: 1px;">{{.Title}}</a>
             </div>
-            <div style="overflow: visible;margin: 20px 0 0 0;display: table;">
-                <div style="overflow:visible;">
-                    <a href="/article/{{.UrlID}}" style="font-size:18px;font-weight:bold;letter-spacing: 1px;">{{.Title}}</a>
-                </div>
-                <div style="margin-top:10px;margin-bottom:10px;">
-                    <div style="max-height:44px;color:#999;overflow:hidden;font-size:14px;line-height:22px;letter-spacing: 1px;">
-                        {{.Brief}}
-                    </div>
+            <div class="my-2">
+                <div style="max-height:44px;color:#999;overflow:hidden;font-size:14px;line-height:22px;letter-spacing: 1px;">
+                    {{.Brief}}
                 </div>
             </div>
         </div>
+    </div>
     {{end}}
 </div>
 

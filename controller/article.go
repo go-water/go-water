@@ -22,6 +22,18 @@ func (h *Handlers) Index(ctx iris.Context) {
 	ctx.View("index.html")
 }
 
+func (h *Handlers) ListDoc(ctx iris.Context) {
+	req := new(service.ListDocRequest)
+	resp, err := h.listDoc.ServerWater(context.Background(), req)
+	if err != nil {
+		ctx.EndRequest()
+	}
+
+	ctx.ViewData("title", "文档 - 爱斯园")
+	ctx.ViewData("body", resp)
+	ctx.View("articles.html")
+}
+
 func (h *Handlers) ListArticle(ctx iris.Context) {
 	req := new(service.ListArticleRequest)
 	resp, err := h.listArticle.ServerWater(context.Background(), req)
@@ -29,7 +41,7 @@ func (h *Handlers) ListArticle(ctx iris.Context) {
 		ctx.EndRequest()
 	}
 
-	ctx.ViewData("title", "文档")
+	ctx.ViewData("title", "技术文章 - 爱斯园")
 	ctx.ViewData("body", resp)
 	ctx.View("articles.html")
 }

@@ -22,7 +22,7 @@ func Start() {
 	app.Get("/link", H.Link)
 
 	app.Run(
-		iris.Addr(":8080"),
+		iris.Addr(":80"),
 		iris.WithoutBanner,
 		iris.WithoutServerError(iris.ErrServerClosed),
 	)

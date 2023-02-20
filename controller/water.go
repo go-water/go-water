@@ -1,9 +1,34 @@
 package controller
 
-import "github.com/kataras/iris/v12"
+import (
+	"encoding/csv"
+	"github.com/kataras/iris/v12"
+	"io"
+	"os"
+)
 
 func (h *Handlers) Reward(ctx iris.Context) {
+	csvFile, err := os.Open("./content/reward.csv")
+	if err != nil {
+		ctx.EndRequest()
+	}
+
+	defer csvFile.Close()
+	csvReader := csv.NewReader(csvFile)
+	result := make([][]string, 0)
+	for {
+		row, er := csvReader.Read()
+		if er == io.EOF {
+			break
+		} else if err != nil {
+			ctx.EndRequest()
+		}
+
+		result = append(result, row)
+	}
+
 	ctx.ViewData("title", "打赏站长 - 爱斯园")
+	ctx.ViewData("body", result)
 	ctx.View("reward.html")
 }
 

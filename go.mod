@@ -5,7 +5,8 @@ go 1.17
 require (
 	github.com/go-gorp/gorp/v3 v3.0.2
 	github.com/go-sql-driver/mysql v1.7.0
-	github.com/go-water/water v0.0.21
+	github.com/go-water/water v0.0.22
+	github.com/gomarkdown/markdown v0.0.0-20221013030248-663e2500819c
 	github.com/google/uuid v1.3.0
 	github.com/kataras/iris/v12 v12.1.8
 	github.com/spf13/viper v1.15.0
@@ -23,7 +24,6 @@ require (
 	github.com/eknkc/amber v0.0.0-20171010120322-cdade1c07385 // indirect
 	github.com/fatih/structs v1.1.0 // indirect
 	github.com/fsnotify/fsnotify v1.6.0 // indirect
-	github.com/gomarkdown/markdown v0.0.0-20221013030248-663e2500819c // indirect
 	github.com/google/go-querystring v1.1.0 // indirect
 	github.com/gorilla/css v1.0.0 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect

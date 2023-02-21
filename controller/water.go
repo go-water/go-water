@@ -1,34 +1,21 @@
 package controller
 
 import (
-	"encoding/csv"
+	"context"
+	"github.com/go-water/go-water/service"
 	"github.com/kataras/iris/v12"
-	"io"
-	"os"
 )
 
 func (h *Handlers) Reward(ctx iris.Context) {
-	csvFile, err := os.Open("./content/reward.csv")
-	if err != nil {
-		ctx.EndRequest()
-	}
-
-	defer csvFile.Close()
-	csvReader := csv.NewReader(csvFile)
-	result := make([][]string, 0)
-	for {
-		row, er := csvReader.Read()
-		if er == io.EOF {
-			break
-		} else if err != nil {
-			ctx.EndRequest()
+	req := new(service.RewardRequest)
+	resp, err := h.reward.ServerWater(context.Background(), req)
+	if err == nil && resp != nil {
+		if result, ok := resp.([][]string); ok {
+			ctx.ViewData("body", result)
 		}
-
-		result = append(result, row)
 	}
 
 	ctx.ViewData("title", "打赏站长 - 爱斯园")
-	ctx.ViewData("body", result)
 	ctx.View("reward.html")
 }
 

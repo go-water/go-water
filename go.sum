@@ -105,8 +105,8 @@ github.com/go-gorp/gorp/v3 v3.0.2/go.mod h1:BJ3q1ejpV8cVALtcXvXaXyTOlMmJhWDxTmnc
 github.com/go-sql-driver/mysql v1.4.1/go.mod h1:zAC/RDZ24gD3HViQzih4MyKcchzm+sOG5ZlKdlhCg5w=
 github.com/go-sql-driver/mysql v1.7.0 h1:ueSltNNllEqE3qcWBTD0iQd3IpL/6U+mJxLkazJ7YPc=
 github.com/go-sql-driver/mysql v1.7.0/go.mod h1:OXbVy3sEdcQ2Doequ6Z5BW6fXNQTmx+9S1MCJN5yJMI=
-github.com/go-water/water v0.0.21 h1:aJC8sEQG/cjEGfEabQbapzLINa5wj6zESR14GD3YMVY=
-github.com/go-water/water v0.0.21/go.mod h1:fZ81hMn2ZqIHuFHp777S7pxlP0EAO0xD+88OLKl15d4=
+github.com/go-water/water v0.0.22 h1:LWiMFBaK7b0qFvJ+tQu7/Twig+Hv0JdpsS4NeFcI3e8=
+github.com/go-water/water v0.0.22/go.mod h1:fZ81hMn2ZqIHuFHp777S7pxlP0EAO0xD+88OLKl15d4=
 github.com/gobwas/httphead v0.0.0-20180130184737-2c6c146eadee/go.mod h1:L0fX3K22YWvt/FAX9NnzrNzcI4wNYi9Yku4O0LKYflo=
 github.com/gobwas/pool v0.2.0/go.mod h1:q8bcK0KcYlCgd9e7WYLm9LpyS+YeLd8JVDW6WezmKEw=
 github.com/gobwas/ws v1.0.2/go.mod h1:szmBTxLgaFppYjEmNtny/v3w89xOydFnnZMcgRRu/EM=

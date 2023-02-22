@@ -1,4 +1,4 @@
-go-water 是一个web辅助框架，帮助 web 框架（gin，iris）实现友好，优美的设计，定义一些接口、规范、约定，让整个系统变得更可读，更解耦，更容易协同开发。
+go-water 是一个设计层面的框架，帮助 web 框架（gin，iris）实现隔离友好，设计优美的系统，通过一系列接口、规范、约定，深度解耦系统。
 
 ### 星星增长趋势
 [![Stargazers over time](https://starchart.cc/go-water/water.svg)](https://starchart.cc/go-water/water)
@@ -24,13 +24,26 @@ type Service interface {
 ```
 你所有的业务接口得都实现这个接口，这个是核心业务接口
 
-### 介绍嵌套结构体 ServerBase
+### 介绍内置的嵌套结构体 ServerBase
 ```
+type ServerBase struct {
+	l *zap.Logger
+}
+
 func (s *ServerBase) Name(srv interface{}) string
 func (s *ServerBase) GetLogger() *zap.Logger
 func (s *ServerBase) SetLogger(l *zap.Logger)
 ```
 这个结构体嵌套进业务结构体，使得业务结构体获得两个读写日志相关的方法，方法Name用来注入服务接口名，打印日志带上接口名更加友好
+
+### 介绍 Handler 接口
+```
+type Handler interface {
+	ServerWater(ctx context.Context, req interface{}) (interface{}, error)
+	GetLogger() *zap.Logger
+}
+```
+Handler 可以理解为接口 Service 的壳，它包装 Service，隐藏调用细节
 
 ### 如何创建一个具体的业务接口 Service (GetArticleService)
 ```
@@ -124,7 +137,7 @@ func ServerFinalizer(f ...ServerFinalizerFunc) ServerOption
 // 配置日志Config
 func ServerConfig(c *Config) ServerOption
 ```
-其中 Server 实现了 Handler 接口，配置 Server，其实是配置 Handler，上面代码来之样例仓库，经过简化处理，更加详细的代码，请参考下面仓库
+结构体 Server 实现了 Handler 接口，配置 Server，其实是配置 Handler，上面代码来之样例仓库，经过简化处理，更加详细的文档和代码，请参考下面仓库和官方网站：
 
 ### 样例仓库
 + [go-water/go-water](https://github.com/go-water/go-water)

@@ -12,7 +12,7 @@ go get -u github.com/go-water/water
 ```
 type Endpoint func(ctx context.Context, req interface{}) (interface{}, error)
 ```
-业务接口 Service 包含一个方法返回这个类型
+业务接口 Service 包含一个方法返回这个类型，见 Service 接口定义
 
 ### 介绍 Service 接口
 ```

@@ -25,7 +25,7 @@ mysql:
 手动创建文件，修改数据库配置
 
 ### 安装步骤
-+ 自己根据 model/article 创建数据表
++ 根据 model/article 创建数据表
 + 手动添加几条数据供 demo 使用
 + 请确保 80 端口没有被别的服务占用，然后在浏览器中输入：http://localhost
 

@@ -1,5 +1,5 @@
 # go-water
-[go-water/water](https://github.com/go-water/water) 框架用例学习网站
+[go-water/water](https://github.com/go-water/water) 框架用例，详细文档和相关资料
 
 ### 星星增长趋势
 [![Stargazers over time](https://starchart.cc/go-water/go-water.svg)](https://starchart.cc/go-water/go-water)

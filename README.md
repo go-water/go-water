@@ -6,8 +6,11 @@
 
 ### 技术栈
 + iris
++ zap
++ gorp
++ viper
 + go-water
-+ ORM 框架使用 gorp
++ markdown
 
 ### config 目录下缺一个 mysql.yaml
 ```

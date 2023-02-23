@@ -1,4 +1,4 @@
-go-water 是一个设计层面的框架，帮助 web 框架（gin，iris，beego，echo等）实现隔离友好，设计优美的系统，通过一系列接口、规范、约定，深度解耦系统。
+go-water 是一款设计层面的框架，帮助 web 框架（gin，iris，beego，echo等）实现隔离友好，设计优美的系统，通过一系列接口、规范、约定，深度解耦系统。
 
 ### 星星增长趋势
 [![Stargazers over time](https://starchart.cc/go-water/water.svg)](https://starchart.cc/go-water/water)
@@ -140,7 +140,7 @@ func ServerConfig(c *Config) ServerOption
 结构体 Server 实现了 Handler 接口，配置 Server，其实是配置 Handler，上面代码来之样例仓库，经过简化处理，更加详细的文档和代码，请参考下面仓库和官方网站：
 
 ### 样例仓库
-+ [go-water/go-water](https://github.com/go-water/go-water)
++ [https://github.com/go-water/go-water](https://github.com/go-water/go-water)
 
 ### 官方网站
-+ [爱斯园](https://go-water.cn)
++ [https://go-water.cn](https://go-water.cn)

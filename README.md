@@ -30,4 +30,4 @@ mysql:
 + 请确保 80 端口没有被别的服务占用，然后在浏览器中输入：http://localhost
 
 ### 网址
-+ http://go-water.cn
++ https://go-water.cn

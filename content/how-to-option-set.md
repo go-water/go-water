@@ -1,0 +1,1 @@
+go-water 的配置参考 go-kit 与 go-micro 设计，都是通过 option 来设置自定义配置。

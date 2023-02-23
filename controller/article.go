@@ -2,6 +2,7 @@ package controller
 
 import (
 	"context"
+	"github.com/go-water/go-water/model"
 	"github.com/go-water/go-water/service"
 	"github.com/kataras/iris/v12"
 	"html/template"
@@ -22,6 +23,7 @@ func (h *Handlers) Index(ctx iris.Context) {
 
 func (h *Handlers) ListDoc(ctx iris.Context) {
 	req := new(service.ListDocRequest)
+	req.Kind = model.ArticleKindDoc
 	resp, err := h.listDoc.ServerWater(context.Background(), req)
 	if err == nil {
 		ctx.ViewData("body", resp)
@@ -33,6 +35,7 @@ func (h *Handlers) ListDoc(ctx iris.Context) {
 
 func (h *Handlers) ListArticle(ctx iris.Context) {
 	req := new(service.ListArticleRequest)
+	req.Kind = model.ArticleKindTech
 	resp, err := h.listArticle.ServerWater(context.Background(), req)
 	if err == nil {
 		ctx.ViewData("body", resp)

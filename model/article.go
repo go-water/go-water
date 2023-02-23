@@ -6,11 +6,17 @@ import (
 	"time"
 )
 
+const (
+	ArticleKindDoc  = 1
+	ArticleKindTech = 2
+)
+
 type Article struct {
 	Id         int           `json:"id" db:"id"`
 	UrlID      string        `json:"url_id" db:"url_id"`
 	Title      string        `json:"title" db:"title"`
 	Icon       string        `json:"icon" db:"icon"`
+	Kind       int           `json:"kind" db:"kind"`
 	Brief      string        `json:"brief" db:"brief"`
 	Body       template.HTML `json:"body" db:"body"`
 	UserID     int           `json:"user_id" db:"user_id"`
@@ -21,10 +27,10 @@ type Article struct {
 	Catalog    string        `json:"catalog" db:"catalog"`
 }
 
-func ListArticles(db gorp.SqlExecutor) ([]*Article, error) {
+func ListArticles(db gorp.SqlExecutor, kind int) ([]*Article, error) {
 	result := make([]*Article, 0)
-	sql := "SELECT url_id,title,icon,brief,create_time FROM article ORDER BY id DESC;"
-	_, err := db.Select(&result, sql)
+	sql := "SELECT url_id,title,icon,brief,create_time FROM article WHERE kind=? ORDER BY id DESC;"
+	_, err := db.Select(&result, sql, kind)
 	if err != nil {
 		return nil, err
 	}
@@ -34,7 +40,7 @@ func ListArticles(db gorp.SqlExecutor) ([]*Article, error) {
 
 func GetArticle(db gorp.SqlExecutor, urlID string) (*Article, error) {
 	result := make([]*Article, 0)
-	sql := "SELECT url_id,title,visited,icon,brief,body,create_time FROM article WHERE url_id=?;"
+	sql := "SELECT url_id,title,visited,icon,brief,create_time FROM article WHERE url_id=?;"
 	_, err := db.Select(&result, sql, urlID)
 	if err != nil {
 		return nil, err

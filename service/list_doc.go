@@ -8,7 +8,7 @@ import (
 )
 
 type ListDocRequest struct {
-	Size int `json:"size"`
+	Kind int `json:"kind"`
 }
 
 type ListDocService struct {
@@ -16,7 +16,7 @@ type ListDocService struct {
 }
 
 func (srv *ListDocService) Handle(ctx context.Context, req *ListDocRequest) (interface{}, error) {
-	result, err := model.ListArticles(model.DbMap)
+	result, err := model.ListArticles(model.DbMap, req.Kind)
 	if err != nil {
 		return nil, err
 	}

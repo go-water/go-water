@@ -3,8 +3,12 @@ package service
 import (
 	"context"
 	"errors"
+	"fmt"
 	"github.com/go-water/go-water/model"
 	"github.com/go-water/water"
+	"github.com/gomarkdown/markdown"
+	"html/template"
+	"io/ioutil"
 )
 
 type GetArticleRequest struct {
@@ -16,12 +20,19 @@ type GetArticleService struct {
 }
 
 func (srv *GetArticleService) Handle(ctx context.Context, req *GetArticleRequest) (interface{}, error) {
-	result, err := model.GetArticle(model.DbMap, req.UrlID)
+	article, err := model.GetArticle(model.DbMap, req.UrlID)
 	if err != nil {
 		return nil, err
 	}
 
-	return result, nil
+	mdBytes, err := ioutil.ReadFile(fmt.Sprintf("./content/%s.md", article.UrlID))
+	if err != nil {
+		return nil, err
+	}
+
+	article.Body = template.HTML(markdown.ToHTML(mdBytes, nil, nil))
+
+	return article, nil
 }
 
 func (srv *GetArticleService) Endpoint() water.Endpoint {

@@ -51,4 +51,4 @@ return &Handlers{
 	index:       water.NewHandler(&service.IndexService{ServerBase: &water.ServerBase{}}, option),
 }
 ```
-说明，每个 Handler 要实例一个 water.ServerBase，嵌套到 Service 服务里，不要共用一个实例。
+说明：每个 Handler 要实例一个 water.ServerBase，嵌套到 Service 服务里，不要共用一个实例。

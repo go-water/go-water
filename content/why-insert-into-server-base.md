@@ -1,5 +1,5 @@
 用例
-```go
+```
 return &Handlers{
 	index:       water.NewHandler(&service.IndexService{ServerBase: &water.ServerBase{}}, option),
 }

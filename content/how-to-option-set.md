@@ -1,12 +1,12 @@
 go-water 的配置参考 go-kit 与 go-micro 设计，使用 option 设置定义，所有定义的 option 都是作为 Service 服务的参数，见末尾使用方式
 
 ### option 函数类型
-```
+```go
 type ServerOption func(*Server)
 ```
 
 ### 自定义错误处理
-```
+```go
 type ErrorHandler interface {
 	Handle(ctx context.Context, err error)
 }
@@ -16,14 +16,14 @@ func ServerErrorHandler(errorHandler ErrorHandler) ServerOption {
 }
 ```
 用例
-```
+```go
 errorHandler := 一个实现 ErrorHandler 接口的结构体实例
 option := water.ServerErrorHandler(errorHandler)
 ```
 可以自定义一个日志处理方式，比如写入磁盘
 
 ### 后置执行器
-```
+```go
 type ServerFinalizerFunc func(ctx context.Context, err error)
 
 func ServerFinalizer(f ...ServerFinalizerFunc) ServerOption {
@@ -31,20 +31,20 @@ func ServerFinalizer(f ...ServerFinalizerFunc) ServerOption {
 }
 ```
 用例
-```
+```go
 finalizerFunc := 一个 ServerFinalizerFunc 类型函数
 option := water.ServerFinalizer(finalizerFunc)
 ```
 请求执行尾部需要执行的函数，可以理解为后置执行器
 
 ### 日志配置
-```
+```go
 func ServerConfig(c *Config) ServerOption {
 	return func(s *Server) { s.c = c }
 }
 ```
 用例
-```
+```go
 conf := &water.Config{Encoding: "console", Level: zap.InfoLevel}
 option := water.ServerConfig(conf)
 return &Handlers{

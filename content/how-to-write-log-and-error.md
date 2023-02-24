@@ -1,5 +1,5 @@
 用例
-```
+```go
 func (srv *IndexService) Handle(ctx context.Context, req *IndexRequest) (interface{}, error) {
 	srv.GetLogger().Info("流水日志记录")
 	// 你的业务代码，省略

@@ -17,6 +17,7 @@ type Service interface {
 	Endpoint() Endpoint
 	Name() string
 	SetLogger(l *zap.Logger)
+	GetRequest() interface{}
 }
 ```
 你所有的业务接口得都实现这个接口，这个是核心业务接口
@@ -38,6 +39,7 @@ func (s *ServerBase) SetLogger(l *zap.Logger)
 type Handler interface {
 	ServerWater(ctx context.Context, req interface{}) (interface{}, error)
 	GetLogger() *zap.Logger
+	GetRequest() interface{}
 }
 ```
 Handler 可以理解为接口 Service 的壳，它包装 Service，隐藏调用细节

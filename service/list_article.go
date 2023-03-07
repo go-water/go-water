@@ -33,7 +33,3 @@ func (srv *ListArticleService) Endpoint() water.Endpoint {
 		}
 	}
 }
-
-func (srv *ListArticleService) GetRequest() interface{} {
-	return new(ListArticleRequest)
-}

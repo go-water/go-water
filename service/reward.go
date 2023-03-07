@@ -47,7 +47,3 @@ func (srv *RewardService) Endpoint() water.Endpoint {
 		}
 	}
 }
-
-func (srv *RewardService) GetRequest() interface{} {
-	return new(RewardRequest)
-}

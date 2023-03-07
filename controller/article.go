@@ -9,7 +9,10 @@ import (
 )
 
 func (h *Handlers) Index(ctx iris.Context) {
-	req := new(service.IndexRequest)
+	//GetRequest 内部使用 pool，可以减少内存分配，无需每次初始化对象
+	// 效果下如下直接 new 一个对象一样
+	//req := new(service.IndexRequest)
+	req := h.index.GetRequest()
 	resp, err := h.index.ServerWater(context.Background(), req)
 	if err == nil && resp != nil {
 		if result, ok := resp.([]byte); ok {
@@ -22,7 +25,7 @@ func (h *Handlers) Index(ctx iris.Context) {
 }
 
 func (h *Handlers) ListDoc(ctx iris.Context) {
-	req := new(service.ListDocRequest)
+	req := h.listDoc.GetRequest().(*service.ListDocRequest)
 	req.Kind = model.ArticleKindDoc
 	resp, err := h.listDoc.ServerWater(context.Background(), req)
 	if err == nil {

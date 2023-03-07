@@ -48,3 +48,7 @@ func (srv *GetArticleService) Endpoint() water.Endpoint {
 func (srv *GetArticleService) Name() string {
 	return srv.ServerBase.Name(srv)
 }
+
+func (srv *GetArticleService) GetRequest() interface{} {
+	return new(GetArticleRequest)
+}

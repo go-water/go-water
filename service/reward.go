@@ -51,3 +51,7 @@ func (srv *RewardService) Endpoint() water.Endpoint {
 func (srv *RewardService) Name() string {
 	return srv.ServerBase.Name(srv)
 }
+
+func (srv *RewardService) GetRequest() interface{} {
+	return new(RewardRequest)
+}

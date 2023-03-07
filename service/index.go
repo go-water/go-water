@@ -35,10 +35,6 @@ func (srv *IndexService) Endpoint() water.Endpoint {
 	}
 }
 
-func (srv *IndexService) Name() string {
-	return srv.ServerBase.Name(srv)
-}
-
 func (srv *IndexService) GetRequest() interface{} {
 	return new(IndexRequest)
 }

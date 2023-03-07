@@ -20,7 +20,7 @@ type Service interface {
 	GetRequest() interface{}
 }
 ```
-你所有的业务接口得都实现这个接口，这个是核心业务接口
+你所有的业务接口得都实现这个接口，这个是核心业务接口，如果自己定义对象new(IndexRequest)，业务服务可以不用提供 GetRequest 方法，由嵌套结构体提供，提供 GetRequest 方法可以减少内存分配，详情见低层代码
 
 ### 介绍内置的嵌套结构体 ServerBase
 ```
@@ -31,6 +31,7 @@ type ServerBase struct {
 func (s *ServerBase) Name(srv interface{}) string
 func (s *ServerBase) GetLogger() *zap.Logger
 func (s *ServerBase) SetLogger(l *zap.Logger)
+func (s *ServerBase) GetRequest() interface{}
 ```
 这个结构体嵌套进业务结构体，使得业务结构体获得两个读写日志相关的方法，方法Name用来注入服务接口名，打印日志带上接口名更加友好
 

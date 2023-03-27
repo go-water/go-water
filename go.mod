@@ -5,7 +5,7 @@ go 1.17
 require (
 	github.com/go-gorp/gorp/v3 v3.0.2
 	github.com/go-sql-driver/mysql v1.7.0
-	github.com/go-water/water v0.1.4
+	github.com/go-water/water v1.0.0
 	github.com/gomarkdown/markdown v0.0.0-20221013030248-663e2500819c
 	github.com/google/uuid v1.3.0
 	github.com/kataras/iris/v12 v12.1.8
@@ -69,4 +69,8 @@ require (
 	gopkg.in/ini.v1 v1.67.0 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
+)
+
+replace (
+	github.com/go-water/water v1.0.0 => ../water
 )

@@ -2,25 +2,24 @@ package controller
 
 import (
 	"context"
+	"github.com/gin-gonic/gin"
 	"github.com/go-water/go-water/service"
-	"github.com/kataras/iris/v12"
+	"net/http"
 )
 
-func (h *Handlers) Reward(ctx iris.Context) {
+func (h *Handlers) Reward(ctx *gin.Context) {
 	req := new(service.RewardRequest)
 	resp, err := h.reward.ServerWater(context.Background(), req)
-	if err == nil && resp != nil {
-		if result, ok := resp.([][]string); ok {
-			ctx.ViewData("body", result)
-		}
+	if err != nil {
+		h.reward.GetLogger().Error(err.Error())
+		return
 	}
 
-	ctx.ViewData("title", "打赏站长 - 爱斯园")
-	ctx.View("reward.html")
+	if result, ok := resp.([][]string); ok {
+		ctx.HTML(http.StatusOK, "reward", gin.H{"body": result, "title": "打赏站长"})
+	}
 }
 
-func (h *Handlers) About(ctx iris.Context) {
-	ctx.ViewData("title", "关于网站 - 爱斯园")
-	ctx.ViewData("body", 88888)
-	ctx.View("about.html")
+func (h *Handlers) About(ctx *gin.Context) {
+	ctx.HTML(http.StatusOK, "about", gin.H{"title": "关于网站"})
 }

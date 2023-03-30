@@ -8,16 +8,16 @@
     <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.2.3/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.bootcdn.net/ajax/libs/github-markdown-css/5.2.0/github-markdown-light.min.css" rel="stylesheet">
     <link href="/styles/site.css?202302181549" rel="stylesheet">
-    {{ part "title" }}
+    <title>{{.title}}</title>
 </head>
 <body spellcheck="false">
 <div class="d-flex flex-column h-100" style="margin:0 auto 0 auto;max-width: 1300px;">
-{{ render "shared/_toper.html"}}
+    {{template "_header" .}}
 <div class="flex-fill w-100 bg-white">
-    {{ yield }}
+    {{template "content" .}}
 </div>
 <div class="w-100" id="footer">
-    {{render "shared/_footer.html"}}
+    {{template "_footer" .}}
 </div>
 </div>
 </body>

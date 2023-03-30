@@ -1,7 +1,4 @@
-{{ define "articles-title"}}
-    <title>{{.title}}</title>
-{{ end }}
-
+{{define "content"}}
 <div class="bg-white">
     {{range .body}}
     <div class="d-flex flex-row mx-4 border-bottom">
@@ -29,3 +26,4 @@
         threshold: 100
     });
 </script>
+{{end}}

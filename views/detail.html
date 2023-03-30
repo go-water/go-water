@@ -1,7 +1,4 @@
-{{ define "detail-title"}}
-<title>{{.body.Title}} - 爱斯园</title>
-{{ end }}
-
+{{define "content"}}
 <div class="p-4">
     <div class="title">
         <h3>{{.body.Title}}</h3>
@@ -13,3 +10,4 @@
         Posted by 何敏 on {{.body.CreateTime.Format "2006/1/2 15:04:05"}}
     </div>
 </div>
+{{end}}

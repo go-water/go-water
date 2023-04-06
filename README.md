@@ -5,7 +5,7 @@
 [![Stargazers over time](https://starchart.cc/go-water/go-water.svg)](https://starchart.cc/go-water/go-water)
 
 ### 技术栈
-+ iris
++ gin
 + zap
 + gorp
 + viper

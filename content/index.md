@@ -139,6 +139,17 @@ func ServerConfig(c *Config) ServerOption
 ```
 结构体 Server 实现了 Handler 接口，配置 Server，其实是配置 Handler，上面代码来之样例仓库，经过简化处理，更加详细的文档和代码，请参考下面仓库和官方网站：
 
+### JWT 集成
+```
+// 创建 token
+SetAuthToken(uniqueUser, privateKeyPath string, expire time.Duration) (tokenString string, err error)
+
+// 验证 token
+ParseAndValid(req *http.Request, publicKeyPath string) (uniqueUser, signature string, err error)
+```
+
+详细文档请看文档列表，找到对应的使用用例
+
 ### 样例仓库
 + [https://github.com/go-water/go-water](https://github.com/go-water/go-water)
 

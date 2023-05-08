@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+    <meta name="description" content="">
+    <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.2.3/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.staticfile.org/bootstrap-icons/1.10.4/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcdn.net/ajax/libs/github-markdown-css/5.2.0/github-markdown-light.min.css" rel="stylesheet">
+    <link href="/styles/site.css?202302181549" rel="stylesheet">
+    <title>{{.title}}</title>
+</head>
+<body spellcheck="false">
+<div class="flex-row d-flex align-items-center justify-content-center w-100 h-100 bg-banner">
+    <form action="/login" method="post">
+        <div style="width: 900px;height: 600px;" class="flex-row d-flex align-items-center justify-content-center position-relative overflow-hidden layout-bg">
+            <div style="width: 900px;height: 600px;" class="position-absolute">
+                <i class="bi bi-circle-fill" style="font-size: 18rem;position: absolute;color: rgba(255, 206, 86, 0.3);top: -80px;left: 230px;"></i>
+                <i class="bi bi-circle-fill" style="font-size: 25rem;position: absolute;color: rgba(75, 192, 192, 0.3);top: -60px;left: -20px;"></i>
+                <i class="bi bi-circle-fill" style="font-size: 40rem;position: absolute;color: rgba(255, 99, 132, 0.3);top: 20px;left: 570px;"></i>
+                <i class="bi bi-circle-fill" style="font-size: 30rem;position: absolute;color: rgba(153, 102, 255, 0.3);top: 35px;left: 220px;"></i>
+            </div>
+            <div style="width: 600px;height: 400px;" class="flex-column d-flex justify-content-center position-absolute bg-white enter">
+                <div class="flex-column d-flex flex-fill my-4 mx-5 py-4 px-5">
+                    <div class="flex-row d-flex align-items-center fs-c10">登录 Jitask 项目管理系统<sup class="navbar-color ms-1">beta</sup></div>
+                    <div class="flex-row d-flex align-items-center py-5">
+                        <input type="text" name="user" class="login-name" placeholder="Email" autocomplete="off"/>
+                    </div>
+                    <div class="flex-row d-flex align-items-center">
+                        <input type="password" name="password" class="login-name" placeholder="Password" autocomplete="off"/>
+                    </div>
+                </div>
+                <div style="flex: 0 0 48px;" class="flex-row d-flex align-items-center bg-banner">
+                    <input type="submit" class="flex-row d-flex flex-fill h-100 pe-4 align-items-center pointer justify-content-center login"/>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>

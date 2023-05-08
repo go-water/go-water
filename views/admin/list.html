@@ -1,0 +1,28 @@
+{{define "content"}}
+<div class="p-4">
+    <table class="table table-hover">
+        <thead class="table-light">
+        <tr>
+            <th scope="col" class="col-4">状态名称</th>
+            <th scope="col" class="col-7">状态类型</th>
+            <th scope="col" class="col-1">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{range .body}}
+        <tr>
+            <td>
+                <a href="/article/{{.UrlID}}">{{.Title}}</a>
+            </td>
+            <td class="text-truncate">
+                {{.Brief}}
+            </td>
+            <td>
+                <a href="/admin/update/{{.UrlID}}">修改</a>
+            </td>
+        </tr>
+        {{end}}
+        </tbody>
+    </table>
+</div>
+{{end}}

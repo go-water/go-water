@@ -20,6 +20,11 @@ type Handlers struct {
 	listDoc     water.Handler
 	listArticle water.Handler
 	getArticle  water.Handler
+	loginPost   water.Handler
+	list        water.Handler
+	addPost     water.Handler
+	update      water.Handler
+	updatePost  water.Handler
 }
 
 func NewService() *Handlers {
@@ -31,5 +36,10 @@ func NewService() *Handlers {
 		listDoc:     water.NewHandler(&service.ListDocService{ServerBase: &water.ServerBase{}}, option),
 		listArticle: water.NewHandler(&service.ListArticleService{ServerBase: &water.ServerBase{}}, option),
 		getArticle:  water.NewHandler(&service.GetArticleService{ServerBase: &water.ServerBase{}}, option),
+		loginPost:   water.NewHandler(&service.LoginPostService{ServerBase: &water.ServerBase{}}, option),
+		list:        water.NewHandler(&service.ListService{ServerBase: &water.ServerBase{}}, option),
+		addPost:     water.NewHandler(&service.AddPostService{ServerBase: &water.ServerBase{}}, option),
+		update:      water.NewHandler(&service.UpdateService{ServerBase: &water.ServerBase{}}, option),
+		updatePost:  water.NewHandler(&service.UpdatePostService{ServerBase: &water.ServerBase{}}, option),
 	}
 }

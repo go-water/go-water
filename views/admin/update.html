@@ -1,0 +1,48 @@
+{{define "content"}}
+<form class="flex-column d-flex flex-fill" action="/admin/update" method="post">
+    <div class="flex-column d-flex flex-fill p-4">
+        <input type="hidden" name="url_id" value="{{.body.UrlID}}">
+        <div class="flex-column flex">
+            <label class="control-label fs-c8">标题</label>
+            <div class="mt-2">
+                <input type="text" name="title" class="form-control" value="{{.body.Title}}">
+            </div>
+        </div>
+        <div class="flex-row d-flex align-items-center mt-3">
+            <div class="flex-column d-flex w-25">
+                <label class="control-label fs-c8">文章类型</label>
+                <div class="mt-2">
+                    <select name="kind" class="form-select">
+                        <option value="1">文档</option>
+                        <option value="2">文章</option>
+                    </select>
+                </div>
+            </div>
+            <div style="width: 1.5rem;"></div>
+            <div class="flex-column d-flex w-75">
+                <label class="control-label fs-c8">图片地址</label>
+                <div class="mt-2">
+                    <input class="form-control" name="icon" value="{{.body.Icon}}"/>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex flex-column flex-fill">
+            <div class="d-flex mt-3 fs-c8">
+                简介
+            </div>
+            <div class="flex-column d-flex mt-3">
+                <textarea name="brief" class="form-control flex-fill">{{.body.Brief}}</textarea>
+            </div>
+            <div class="d-flex mt-3 fs-c8">
+                描述（Markdown）
+            </div>
+            <div class="flex-column d-flex flex-fill mt-3" style="height: 0;">
+                <textarea name="body" class="form-control flex-fill">{{.body.Body}}</textarea>
+            </div>
+            <div>
+                <input type="submit" class="form-control mt-3">
+            </div>
+        </div>
+    </div>
+</form>
+{{end}}

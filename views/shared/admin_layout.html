@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+  <meta name="description" content="">
+  <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.2.3/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.staticfile.org/bootstrap-icons/1.10.4/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="https://cdn.bootcdn.net/ajax/libs/github-markdown-css/5.2.0/github-markdown-light.min.css" rel="stylesheet">
+  <link href="/styles/site.css?202302181549" rel="stylesheet">
+  <title>{{.title}}</title>
+</head>
+<body spellcheck="false">
+<div class="d-flex flex-column h-100" style="margin:0 auto 0 auto;max-width: 1300px;">
+  {{template "_header" .}}
+  <div class="d-flex flex-fill flex-column w-100 bg-white">
+    {{template "content" .}}
+  </div>
+</div>
+</body>
+</html>

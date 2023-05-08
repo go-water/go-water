@@ -73,3 +73,9 @@ a:hover {
     padding: 5px 0 5px 30px;
     border-bottom: 1px solid #eeeeee;
 }
+
+.bg-banner { background-color: #f8f8f8; }
+.layout-bg { background: #fafbfe; }
+
+.login { background-color: #364150;color: #cccccc; }
+.login-name { border: none;border-bottom: 1px solid #e8e8e8;width: 100%;box-shadow: none;outline: none;line-height: 30px;padding-left: 10px; }

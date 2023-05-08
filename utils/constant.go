@@ -1,5 +1,7 @@
 package utils
 
+import "time"
+
 var (
 	Size   = 50
 	Offset = 0
@@ -13,6 +15,7 @@ var (
 
 	RedisLoginKeyPrefix = "login:%s"
 
+	AuthTimeout       = 7 * 24 * time.Hour
 	RsaPrivateKeyPath = "config/rsa_private.key"
 	RsaPublicKeyPath  = "config/rsa_public.key"
 	AuthorizationKey  = "Authorization"

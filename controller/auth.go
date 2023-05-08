@@ -26,7 +26,7 @@ func (h *Handlers) LoginPost(ctx *gin.Context) {
 	}
 
 	if result, ok := resp.(string); ok {
-		ctx.SetCookie(utils.AuthorizationKey, result, 3600, "/", viper.GetString("service.domain"), false, true)
+		ctx.SetCookie(utils.AuthorizationKey, result, int(utils.AuthTimeout.Seconds()), "/", viper.GetString("service.domain"), false, true)
 		ctx.Redirect(http.StatusFound, "/admin/list")
 	} else {
 		ctx.Redirect(http.StatusFound, "/login")

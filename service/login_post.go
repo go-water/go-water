@@ -6,7 +6,6 @@ import (
 	"github.com/go-water/go-water/model"
 	"github.com/go-water/go-water/utils"
 	"github.com/go-water/water"
-	"time"
 )
 
 type LoginPostRequest struct {
@@ -28,7 +27,7 @@ func (srv *LoginPostService) Handle(ctx context.Context, req *LoginPostRequest) 
 		return nil, errors.New("账号或密码错误")
 	}
 
-	token, err := water.SetAuthToken(req.User, utils.RsaPrivateKeyPath, 7*24*time.Hour)
+	token, err := water.SetAuthToken(req.User, utils.RsaPrivateKeyPath, utils.AuthTimeout)
 	if err != nil {
 		return nil, errors.New("创建登陆失败")
 	}

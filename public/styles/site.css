@@ -79,3 +79,5 @@ a:hover {
 
 .login { background-color: #364150;color: #cccccc; }
 .login-name { border: none;border-bottom: 1px solid #e8e8e8;width: 100%;box-shadow: none;outline: none;line-height: 30px;padding-left: 10px; }
+
+.navbar-color { color: #17C4BB !important; }

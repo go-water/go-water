@@ -27,6 +27,7 @@ func Start() {
 
 	router.GET("/login", H.Login)
 	router.POST("/login", H.LoginPost)
+	router.GET("/logout", H.Logout)
 
 	admin := router.Group("/admin")
 	admin.Use(middleware.CheckAuth)

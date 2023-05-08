@@ -32,3 +32,8 @@ func (h *Handlers) LoginPost(ctx *gin.Context) {
 		ctx.Redirect(http.StatusFound, "/login")
 	}
 }
+
+func (h *Handlers) Logout(ctx *gin.Context) {
+	ctx.SetCookie(utils.AuthorizationKey, "", -1, "/", viper.GetString("service.domain"), false, true)
+	ctx.Redirect(http.StatusFound, "/")
+}

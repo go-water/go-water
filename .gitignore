@@ -15,4 +15,5 @@
 # vendor/
 
 .idea
+*.key
 mysql.yaml

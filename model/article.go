@@ -12,15 +12,16 @@ const (
 )
 
 type Article struct {
-	Id         int           `json:"id" db:"id"`
-	UrlID      string        `json:"url_id" db:"url_id"`
-	Title      string        `json:"title" db:"title"`
-	Icon       string        `json:"icon" db:"icon"`
-	Kind       int           `json:"kind" db:"kind"`
-	Visited    int           `json:"visited" db:"visited"`
-	Brief      string        `json:"brief" db:"brief"`
-	Body       template.HTML `json:"body" db:"body"`
-	CreateTime time.Time     `json:"create_time" db:"create_time"`
+	Id          int           `json:"id" db:"id"`
+	UrlID       string        `json:"url_id" db:"url_id"`
+	Title       string        `json:"title" db:"title"`
+	Icon        string        `json:"icon" db:"icon"`
+	Kind        int           `json:"kind" db:"kind"`
+	Visited     int           `json:"visited" db:"visited"`
+	Brief       string        `json:"brief" db:"brief"`
+	Body        template.HTML `json:"body" db:"body"`
+	CreateTime  time.Time     `json:"create_time" db:"create_time"`
+	UpdatedTime time.Time     `json:"updated_time" db:"updated_time"`
 }
 
 func (p *Article) Insert(db gorp.SqlExecutor) error {
@@ -55,7 +56,7 @@ func ListArticles(db gorp.SqlExecutor, kind int) ([]*Article, error) {
 
 func GetArticle(db gorp.SqlExecutor, urlID string) (*Article, error) {
 	result := make([]*Article, 0)
-	sql := "SELECT url_id,title,visited,icon,kind,brief,body,create_time FROM article WHERE url_id=?;"
+	sql := "SELECT url_id,title,visited,icon,kind,brief,body,updated_time FROM article WHERE url_id=?;"
 	_, err := db.Select(&result, sql, urlID)
 	if err != nil {
 		return nil, err

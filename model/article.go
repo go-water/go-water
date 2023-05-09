@@ -24,6 +24,13 @@ type Article struct {
 	UpdatedTime time.Time     `json:"updated_time" db:"updated_time"`
 }
 
+func (p *Article) PreInsert(gorp.SqlExecutor) error {
+	p.CreateTime = time.Now()
+	p.UpdatedTime = time.Now()
+
+	return nil
+}
+
 func (p *Article) Insert(db gorp.SqlExecutor) error {
 	if err := db.Insert(p); err != nil {
 		return err

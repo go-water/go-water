@@ -1,6 +1,6 @@
 {{define "content"}}
 <form class="flex-column d-flex flex-fill" action="/admin/update" method="post">
-    <div class="flex-column d-flex flex-fill p-4">
+    <div class="flex-column d-flex flex-fill px-4 py-3">
         <input type="hidden" name="url_id" value="{{.body.UrlID}}">
         <div class="flex-column flex">
             <label class="control-label fs-c8">标题</label>
@@ -8,7 +8,7 @@
                 <input type="text" name="title" class="form-control" value="{{.body.Title}}">
             </div>
         </div>
-        <div class="flex-row d-flex align-items-center mt-3">
+        <div class="flex-row d-flex mt-3">
             <div class="flex-column d-flex w-25">
                 <label class="control-label fs-c8">文章类型</label>
                 <div class="mt-2">
@@ -18,11 +18,14 @@
                     </select>
                 </div>
             </div>
-            <div style="width: 1.5rem;"></div>
-            <div class="flex-column d-flex w-75">
+            <div class="flex-column ms-4 d-flex w-75">
                 <label class="control-label fs-c8">图片地址</label>
-                <div class="mt-2">
-                    <input class="form-control" name="icon" value="{{.body.Icon}}"/>
+                <div class="d-flex align-items-center mt-2" style="position: relative;">
+                    <div class="d-flex align-items-center justify-content-center position-absolute" style="right: 0;">
+                        <span class="position-absolute" style="width: 80px;right: 0;"> 选择图片 </span>
+                        <input type="file" id="upload" name="file" class="position-absolute opacity-0" style="width: 80px;right: 0;"/>
+                    </div>
+                    <input type="text" id="uploadIcon" name="icon" value="{{.body.Icon}}" class="form-control" />
                 </div>
             </div>
         </div>

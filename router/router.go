@@ -31,6 +31,7 @@ func Start() {
 
 	admin := router.Group("/admin")
 	admin.Use(middleware.CheckAuth)
+	admin.POST("/upload", H.Upload)
 	admin.GET("/add", H.Add)
 	admin.POST("/add", H.AddPost)
 	admin.GET("/update/:id", H.Update)
@@ -49,8 +50,8 @@ func createMyRender() multitemplate.Renderer {
 	r.AddFromFiles("reward", "views/shared/layout.html", "views/reward.html", "views/shared/_header.html", "views/shared/_footer.html")
 
 	r.AddFromFiles("login", "views/auth/login.html")
-	r.AddFromFiles("list", "views/shared/admin_layout.html", "views/admin/list.html", "views/shared/admin_header.html")
-	r.AddFromFiles("add", "views/shared/admin_layout.html", "views/admin/add.html", "views/shared/admin_header.html")
-	r.AddFromFiles("update", "views/shared/admin_layout.html", "views/admin/update.html", "views/shared/admin_header.html")
+	r.AddFromFiles("list", "views/admin/layout.html", "views/admin/list.html", "views/admin/_header.html", "views/admin/_footer_none.html")
+	r.AddFromFiles("add", "views/admin/layout.html", "views/admin/add.html", "views/admin/_header.html", "views/admin/_footer.html")
+	r.AddFromFiles("update", "views/admin/layout.html", "views/admin/update.html", "views/admin/_header.html", "views/admin/_footer.html")
 	return r
 }

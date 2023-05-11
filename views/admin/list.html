@@ -4,7 +4,8 @@
         <thead class="table-light">
         <tr>
             <th scope="col" class="col-4 ps-4">标题</th>
-            <th scope="col" class="col-7">简介</th>
+            <th scope="col" class="col-1 text-center">类型</th>
+            <th scope="col" class="col-6">简介</th>
             <th scope="col" class="col-1 text-center">操作</th>
         </tr>
         </thead>
@@ -12,9 +13,13 @@
         {{range .body}}
         <tr>
             <td class="col-4 text-truncate ps-4" style="max-width: 400px;">
+                <i class="bi bi-record2 me-2"></i>
                 <a href="/article/{{.UrlID}}" target="_blank">{{.Title}}</a>
             </td>
-            <td class="col-7 text-truncate" style="max-width: 700px;">
+            <td class="col-1 text-center">
+                {{ if eq .Kind 1 }}文档{{else if eq .Kind 2}}文章{{else}}测试{{end}}
+            </td>
+            <td class="col-6 text-truncate" style="max-width: 600px;">
                 {{.Brief}}
             </td>
             <td class="col-1 text-center">

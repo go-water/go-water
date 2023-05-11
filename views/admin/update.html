@@ -13,9 +13,9 @@
                 <label class="control-label fs-c8">文章类型</label>
                 <div class="mt-2">
                     <select name="kind" class="form-select">
-                        <option value="1">文档</option>
-                        <option value="2">文章</option>
-                        <option value="3">测试</option>
+                        <option {{ if eq .body.Kind 1 }}selected{{end}} value="1">文档</option>
+                        <option {{ if eq .body.Kind 2 }}selected{{end}} value="2">文章</option>
+                        <option {{ if eq .body.Kind 3 }}selected{{end}} value="3">测试</option>
                     </select>
                 </div>
             </div>

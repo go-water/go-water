@@ -16,16 +16,18 @@ func (h *Handlers) AddPost(ctx *gin.Context) {
 	request := new(service.AddPostRequest)
 	if err := ShouldBind(ctx, request); err != nil {
 		h.loginPost.GetLogger().Error(err.Error())
+		ctx.JSON(http.StatusBadRequest, gin.H{"msg": err.Error()})
 		return
 	}
 
 	_, err := h.addPost.ServerWater(context.Background(), request)
 	if err != nil {
 		h.reward.GetLogger().Error(err.Error())
+		ctx.JSON(http.StatusBadRequest, gin.H{"msg": err.Error()})
 		return
 	}
 
-	ctx.Redirect(http.StatusFound, "/admin/list")
+	ctx.JSON(http.StatusOK, gin.H{"result": true})
 }
 
 func (h *Handlers) List(ctx *gin.Context) {
@@ -57,14 +59,16 @@ func (h *Handlers) UpdatePost(ctx *gin.Context) {
 	request := new(service.UpdatePostRequest)
 	if err := ShouldBind(ctx, request); err != nil {
 		h.loginPost.GetLogger().Error(err.Error())
+		ctx.JSON(http.StatusBadRequest, gin.H{"msg": err.Error()})
 		return
 	}
 
 	_, err := h.updatePost.ServerWater(context.Background(), request)
 	if err != nil {
 		h.reward.GetLogger().Error(err.Error())
+		ctx.JSON(http.StatusBadRequest, gin.H{"msg": err.Error()})
 		return
 	}
 
-	ctx.Redirect(http.StatusFound, "/admin/list")
+	ctx.JSON(http.StatusOK, gin.H{"result": true})
 }

@@ -30,7 +30,6 @@
 })(jQuery);
 
 $("#upload").change(function(){
-    console.log("adf");
     $("#upload").upload("/admin/upload", function (response) {
         $("#uploadIcon").val(response.default);
     });

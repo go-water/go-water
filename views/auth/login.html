@@ -7,7 +7,6 @@
     <meta name="description" content="">
     <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.2.3/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.staticfile.org/bootstrap-icons/1.10.4/font/bootstrap-icons.min.css" rel="stylesheet">
-    <link href="https://cdn.bootcdn.net/ajax/libs/github-markdown-css/5.2.0/github-markdown-light.min.css" rel="stylesheet">
     <link href="/styles/site.css?202302181549" rel="stylesheet">
     <title>{{.title}}</title>
 </head>
@@ -32,11 +31,13 @@
                     </div>
                 </div>
                 <div style="flex: 0 0 48px;" class="flex-row d-flex align-items-center bg-banner">
-                    <input type="submit" value="登录" class="flex-row d-flex flex-fill h-100 align-items-center border-0 pointer justify-content-center login"/>
+                    <input type="button" id="login" value="登录" class="flex-row d-flex flex-fill h-100 align-items-center border-0 pointer justify-content-center login"/>
                 </div>
             </div>
         </div>
     </form>
 </div>
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src="/scripts/auth.js"></script>
 </body>
 </html>

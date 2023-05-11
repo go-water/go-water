@@ -16,21 +16,20 @@ func (h *Handlers) LoginPost(ctx *gin.Context) {
 	request := new(service.LoginPostRequest)
 	if err := ShouldBind(ctx, request); err != nil {
 		h.loginPost.GetLogger().Error(err.Error())
+		ctx.JSON(http.StatusBadRequest, gin.H{"msg": err.Error()})
 		return
 	}
 
 	resp, err := h.loginPost.ServerWater(ctx, request)
 	if err != nil {
 		h.loginPost.GetLogger().Error(err.Error())
+		ctx.JSON(http.StatusBadRequest, gin.H{"msg": err.Error()})
 		return
 	}
 
-	if result, ok := resp.(string); ok {
-		ctx.SetCookie(utils.AuthorizationKey, result, int(utils.AuthTimeout.Seconds()), "/", viper.GetString("service.domain"), false, true)
-		ctx.Redirect(http.StatusFound, "/admin/list")
-	} else {
-		ctx.Redirect(http.StatusFound, "/login")
-	}
+	result := resp.(string)
+	ctx.SetCookie(utils.AuthorizationKey, result, int(utils.AuthTimeout.Seconds()), "/", viper.GetString("service.domain"), false, true)
+	ctx.JSON(http.StatusOK, gin.H{"result": true})
 }
 
 func (h *Handlers) Logout(ctx *gin.Context) {

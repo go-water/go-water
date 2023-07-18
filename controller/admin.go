@@ -32,7 +32,7 @@ func (h *Handlers) AddPost(ctx *gin.Context) {
 
 func (h *Handlers) List(ctx *gin.Context) {
 	req := new(service.ListRequest)
-	resp, err := h.list.ServerWater(context.Background(), req)
+	resp, err := h.list.ServerWater(ctx, req)
 	if err != nil {
 		h.listDoc.GetLogger().Error(err.Error())
 		return
@@ -44,7 +44,7 @@ func (h *Handlers) List(ctx *gin.Context) {
 func (h *Handlers) Update(ctx *gin.Context) {
 	req := new(service.UpdateRequest)
 	req.UrlID = ctx.Param("id")
-	resp, err := h.update.ServerWater(context.Background(), req)
+	resp, err := h.update.ServerWater(ctx, req)
 	if err != nil {
 		h.reward.GetLogger().Error(err.Error())
 		return
@@ -63,7 +63,7 @@ func (h *Handlers) UpdatePost(ctx *gin.Context) {
 		return
 	}
 
-	_, err := h.updatePost.ServerWater(context.Background(), request)
+	_, err := h.updatePost.ServerWater(ctx, request)
 	if err != nil {
 		h.reward.GetLogger().Error(err.Error())
 		ctx.JSON(http.StatusBadRequest, gin.H{"msg": err.Error()})

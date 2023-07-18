@@ -1,7 +1,6 @@
 package controller
 
 import (
-	"context"
 	"github.com/gin-gonic/gin"
 	"github.com/go-water/go-water/model"
 	"github.com/go-water/go-water/service"
@@ -14,7 +13,7 @@ func (h *Handlers) Index(ctx *gin.Context) {
 	// 效果下如下直接 new 一个对象一样
 	//req := new(service.IndexRequest)
 	req := h.index.GetRequest()
-	resp, err := h.index.ServerWater(context.Background(), req)
+	resp, err := h.index.ServerWater(ctx, req)
 	if err != nil {
 		h.index.GetLogger().Error(err.Error())
 		return
@@ -28,7 +27,7 @@ func (h *Handlers) Index(ctx *gin.Context) {
 func (h *Handlers) ListDoc(ctx *gin.Context) {
 	req := h.listDoc.GetRequest().(*service.ListDocRequest)
 	req.Kind = model.ArticleKindDoc
-	resp, err := h.listDoc.ServerWater(context.Background(), req)
+	resp, err := h.listDoc.ServerWater(ctx, req)
 	if err != nil {
 		h.listDoc.GetLogger().Error(err.Error())
 		return
@@ -40,7 +39,7 @@ func (h *Handlers) ListDoc(ctx *gin.Context) {
 func (h *Handlers) ListArticle(ctx *gin.Context) {
 	req := new(service.ListArticleRequest)
 	req.Kind = model.ArticleKindTech
-	resp, err := h.listArticle.ServerWater(context.Background(), req)
+	resp, err := h.listArticle.ServerWater(ctx, req)
 	if err != nil {
 		h.listArticle.GetLogger().Error(err.Error())
 		return
@@ -53,7 +52,7 @@ func (h *Handlers) GetArticle(ctx *gin.Context) {
 	id := ctx.Param("id")
 	req := new(service.GetArticleRequest)
 	req.UrlID = id
-	resp, err := h.getArticle.ServerWater(context.Background(), req)
+	resp, err := h.getArticle.ServerWater(ctx, req)
 	if err != nil {
 		h.getArticle.GetLogger().Error(err.Error())
 		return

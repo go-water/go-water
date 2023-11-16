@@ -1,6 +1,6 @@
 ### 创建token
 ```
-SetAuthToken(uniqueUser, privateKeyPath string, expire time.Duration) (tokenString string, err error)
+func SetAuthToken(uniqueUser, privateKeyPath string, expire time.Duration) (tokenString string, err error)
 ```
 输入参数
 + uniqueUser，这个是用户标识符，可以用一个唯一的数字id，也可以是其他用户账号，但必须全局唯一
@@ -13,10 +13,10 @@ SetAuthToken(uniqueUser, privateKeyPath string, expire time.Duration) (tokenStri
 
 ### 验证token
 ```
-ParseAndValid(req *http.Request, publicKeyPath string) (uniqueUser, signature string, err error)
+func ParseFromRequest(req *http.Request, publicKeyPath string) (uniqueUser, signature string, err error)
 ```
 输入参数
-+ req，go低层类型，每个web框架都包含了这个对象
++ req，每个web框架都包含了这个对象
 + publicKeyPath，公钥的路径
 
 输出参数

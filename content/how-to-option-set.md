@@ -37,18 +37,21 @@ option := water.ServerFinalizer(finalizerFunc)
 ```
 请求执行尾部需要执行的函数，可以理解为后置执行器
 
-### 日志配置
+### 限流
 ```
-func ServerConfig(c *Config) ServerOption {
-	return func(s *Server) { s.c = c }
+func ServerLimiter(interval time.Duration, b int) ServerOption {
+	return func(s *Server) {
+		s.limit = rate.NewLimiter(rate.Every(interval), b)
+	}
 }
 ```
 用例
 ```
-conf := &water.Config{Encoding: "console", Level: zap.InfoLevel}
-option := water.ServerConfig(conf)
-return &Handlers{
-	index:       water.NewHandler(&service.IndexService{ServerBase: &water.ServerBase{}}, option),
+func NewService() *Handlers {
+	option := water.ServerLimiter(time.Minute, 100)
+	return &Handlers{
+		getArticle:  water.NewHandler(&service.GetArticleService{ServerBase: &water.ServerBase{}}, option),
+	}
 }
 ```
 说明：每个 Handler 要实例一个 water.ServerBase，嵌套到 Service 服务里，不要共用一个实例。

@@ -6,6 +6,7 @@ import (
 	"errors"
 	"github.com/go-water/go-water/model"
 	"github.com/go-water/water"
+	"github.com/go-water/water/endpoint"
 	"github.com/gomarkdown/markdown"
 	"github.com/gomarkdown/markdown/parser"
 	"html/template"
@@ -30,7 +31,7 @@ func (srv *GetArticleService) Handle(ctx context.Context, req *GetArticleRequest
 	return article, nil
 }
 
-func (srv *GetArticleService) Endpoint() water.Endpoint {
+func (srv *GetArticleService) Endpoint() endpoint.Endpoint {
 	return func(ctx context.Context, req interface{}) (interface{}, error) {
 		if r, ok := req.(*GetArticleRequest); ok {
 			return srv.Handle(ctx, r)

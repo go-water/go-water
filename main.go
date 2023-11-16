@@ -1,15 +1,20 @@
 package main
 
 import (
+	"github.com/go-water/go-water/controller"
 	"github.com/go-water/go-water/helpers"
-	"github.com/go-water/go-water/logger"
 	"github.com/go-water/go-water/model"
 	"github.com/go-water/go-water/router"
+	"github.com/go-water/water"
 )
 
 func main() {
-	logger.InitLogger()
-	helpers.InitConfig()
-	model.InitDB()
 	router.Start()
+}
+
+func init() {
+	helpers.InitConfig()
+	water.InitZap()
+	model.InitDB()
+	controller.InitService()
 }

@@ -6,6 +6,7 @@ import (
 	"github.com/go-water/go-water/model"
 	"github.com/go-water/go-water/utils"
 	"github.com/go-water/water"
+	"github.com/go-water/water/endpoint"
 )
 
 type LoginPostRequest struct {
@@ -35,7 +36,7 @@ func (srv *LoginPostService) Handle(ctx context.Context, req *LoginPostRequest) 
 	return token, nil
 }
 
-func (srv *LoginPostService) Endpoint() water.Endpoint {
+func (srv *LoginPostService) Endpoint() endpoint.Endpoint {
 	return func(ctx context.Context, req interface{}) (interface{}, error) {
 		if r, ok := req.(*LoginPostRequest); ok {
 			return srv.Handle(ctx, r)

@@ -5,6 +5,7 @@ import (
 	"errors"
 	"github.com/go-water/go-water/model"
 	"github.com/go-water/water"
+	"github.com/go-water/water/endpoint"
 )
 
 type ListDocRequest struct {
@@ -24,7 +25,7 @@ func (srv *ListDocService) Handle(ctx context.Context, req *ListDocRequest) (int
 	return result, nil
 }
 
-func (srv *ListDocService) Endpoint() water.Endpoint {
+func (srv *ListDocService) Endpoint() endpoint.Endpoint {
 	return func(ctx context.Context, req interface{}) (interface{}, error) {
 		if r, ok := req.(*ListDocRequest); ok {
 			return srv.Handle(ctx, r)

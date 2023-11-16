@@ -3,16 +3,12 @@ package controller
 import (
 	"github.com/go-water/go-water/service"
 	"github.com/go-water/water"
-	"go.uber.org/zap"
+	"time"
 )
 
 var (
 	H *Handlers
 )
-
-func init() {
-	H = NewService()
-}
 
 type Handlers struct {
 	index       water.Handler
@@ -28,8 +24,7 @@ type Handlers struct {
 }
 
 func NewService() *Handlers {
-	conf := &water.Config{Encoding: "console", Level: zap.InfoLevel}
-	option := water.ServerConfig(conf)
+	option := water.ServerLimiter(time.Minute, 100)
 	return &Handlers{
 		index:       water.NewHandler(&service.IndexService{ServerBase: &water.ServerBase{}}, option),
 		reward:      water.NewHandler(&service.RewardService{ServerBase: &water.ServerBase{}}, option),
@@ -42,4 +37,8 @@ func NewService() *Handlers {
 		update:      water.NewHandler(&service.UpdateService{ServerBase: &water.ServerBase{}}, option),
 		updatePost:  water.NewHandler(&service.UpdatePostService{ServerBase: &water.ServerBase{}}, option),
 	}
+}
+
+func InitService() {
+	H = NewService()
 }

@@ -5,6 +5,7 @@ import (
 	"errors"
 	"github.com/go-water/go-water/model"
 	"github.com/go-water/water"
+	"github.com/go-water/water/endpoint"
 )
 
 type UpdateRequest struct {
@@ -24,7 +25,7 @@ func (srv *UpdateService) Handle(ctx context.Context, req *UpdateRequest) (inter
 	return article, nil
 }
 
-func (srv *UpdateService) Endpoint() water.Endpoint {
+func (srv *UpdateService) Endpoint() endpoint.Endpoint {
 	return func(ctx context.Context, req interface{}) (interface{}, error) {
 		if r, ok := req.(*UpdateRequest); ok {
 			return srv.Handle(ctx, r)

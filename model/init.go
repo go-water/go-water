@@ -5,7 +5,6 @@ import (
 	"github.com/go-gorp/gorp/v3"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/go-water/go-water/helpers"
-	"github.com/go-water/go-water/logger"
 	"runtime/debug"
 )
 
@@ -50,7 +49,7 @@ func DBMTransact(dbMap *gorp.DbMap, txFunc func(*gorp.Transaction) error) (err e
 	}
 	defer func() {
 		if p := recover(); p != nil {
-			logger.L.Warn(fmt.Sprintf("%s: %s", p, debug.Stack()))
+			fmt.Println(fmt.Sprintf("%s: %s", p, debug.Stack()))
 			switch p := p.(type) {
 			case error:
 				err = p

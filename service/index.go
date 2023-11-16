@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"github.com/go-water/water"
+	"github.com/go-water/water/endpoint"
 	"github.com/gomarkdown/markdown"
 	"io/ioutil"
 )
@@ -25,7 +26,7 @@ func (srv *IndexService) Handle(ctx context.Context, req *IndexRequest) (interfa
 	return html, nil
 }
 
-func (srv *IndexService) Endpoint() water.Endpoint {
+func (srv *IndexService) Endpoint() endpoint.Endpoint {
 	return func(ctx context.Context, req interface{}) (interface{}, error) {
 		if r, ok := req.(*IndexRequest); ok {
 			return srv.Handle(ctx, r)

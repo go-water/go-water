@@ -6,7 +6,7 @@ import (
 	"github.com/go-water/water"
 	"github.com/go-water/water/endpoint"
 	"github.com/gomarkdown/markdown"
-	"io/ioutil"
+	"os"
 )
 
 type IndexRequest struct{}
@@ -16,7 +16,7 @@ type IndexService struct {
 }
 
 func (srv *IndexService) Handle(ctx context.Context, req *IndexRequest) (interface{}, error) {
-	mdBytes, err := ioutil.ReadFile("./content/index.md")
+	mdBytes, err := os.ReadFile("./content/index.md")
 	if err != nil {
 		return nil, err
 	}

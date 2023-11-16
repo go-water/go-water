@@ -7,13 +7,12 @@ require (
 	github.com/gin-gonic/gin v1.9.1
 	github.com/go-gorp/gorp/v3 v3.1.0
 	github.com/go-sql-driver/mysql v1.7.1
-	github.com/go-water/water v1.0.0
+	github.com/go-water/water v0.3.2
 	github.com/gomarkdown/markdown v0.0.0-20231115200524-a660076da3fd
 	github.com/google/uuid v1.4.0
 	github.com/jinzhu/copier v0.4.0
 	github.com/spf13/viper v1.17.0
 	go.uber.org/zap v1.26.0
-	google.golang.org/appengine v1.6.7
 )
 
 require (
@@ -27,7 +26,6 @@ require (
 	github.com/go-playground/validator/v10 v10.14.0 // indirect
 	github.com/goccy/go-json v0.10.2 // indirect
 	github.com/golang-jwt/jwt/v4 v4.5.0 // indirect
-	github.com/golang/protobuf v1.5.3 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
 	github.com/klauspost/cpuid/v2 v2.2.4 // indirect
@@ -60,4 +58,4 @@ require (
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
 
-replace github.com/go-water/water v1.0.0 => ../water
+//replace github.com/go-water/water v1.0.0 => ../water

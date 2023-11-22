@@ -1,11 +1,15 @@
 package service
 
 import (
+	"bytes"
 	"context"
 	"errors"
 	"github.com/go-water/water"
 	"github.com/go-water/water/endpoint"
-	"github.com/gomarkdown/markdown"
+	"github.com/yuin/goldmark"
+	"github.com/yuin/goldmark/extension"
+	"github.com/yuin/goldmark/parser"
+	"github.com/yuin/goldmark/renderer/html"
 	"os"
 )
 
@@ -21,9 +25,22 @@ func (srv *IndexService) Handle(ctx context.Context, req *IndexRequest) (interfa
 		return nil, err
 	}
 
-	html := markdown.ToHTML(mdBytes, nil, nil)
+	md := goldmark.New(
+		goldmark.WithExtensions(extension.GFM),
+		goldmark.WithParserOptions(
+			parser.WithAutoHeadingID(),
+		),
+		goldmark.WithRendererOptions(
+			html.WithHardWraps(),
+			html.WithXHTML(),
+		),
+	)
+	var buf bytes.Buffer
+	if err := md.Convert(mdBytes, &buf); err != nil {
+		return nil, err
+	}
 
-	return html, nil
+	return buf.Bytes(), nil
 }
 
 func (srv *IndexService) Endpoint() endpoint.Endpoint {

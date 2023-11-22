@@ -8,11 +8,11 @@ require (
 	github.com/go-gorp/gorp/v3 v3.1.0
 	github.com/go-sql-driver/mysql v1.7.1
 	github.com/go-water/water v0.3.3
-	github.com/gomarkdown/markdown v0.0.0-20231115200524-a660076da3fd
 	github.com/google/uuid v1.4.0
 	github.com/jinzhu/copier v0.4.0
 	github.com/sony/gobreaker v0.5.0
 	github.com/spf13/viper v1.17.0
+	github.com/yuin/goldmark v1.6.0
 	go.uber.org/zap v1.26.0
 )
 

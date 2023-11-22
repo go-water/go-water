@@ -7,8 +7,10 @@ import (
 	"github.com/go-water/go-water/model"
 	"github.com/go-water/water"
 	"github.com/go-water/water/endpoint"
-	"github.com/gomarkdown/markdown"
-	"github.com/gomarkdown/markdown/parser"
+	"github.com/yuin/goldmark"
+	"github.com/yuin/goldmark/extension"
+	"github.com/yuin/goldmark/parser"
+	"github.com/yuin/goldmark/renderer/html"
 	"html/template"
 )
 
@@ -26,8 +28,22 @@ func (srv *GetArticleService) Handle(ctx context.Context, req *GetArticleRequest
 		return nil, err
 	}
 
-	article.Body = template.HTML(markdown.ToHTML(bytes.Replace([]byte(article.Body), []byte("\r"), nil, -1), parser.New(), nil))
+	md := goldmark.New(
+		goldmark.WithExtensions(extension.GFM),
+		goldmark.WithParserOptions(
+			parser.WithAutoHeadingID(),
+		),
+		goldmark.WithRendererOptions(
+			html.WithHardWraps(),
+			html.WithXHTML(),
+		),
+	)
+	var buf bytes.Buffer
+	if err := md.Convert([]byte(article.Body), &buf); err != nil {
+		return nil, err
+	}
 
+	article.Body = template.HTML(buf.Bytes())
 	return article, nil
 }
 

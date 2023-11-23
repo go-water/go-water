@@ -15,11 +15,12 @@ func CheckAuth(ctx *gin.Context) {
 	}
 
 	ctx.Request.Header.Set(utils.AuthorizationKey, utils.BearerKey+" "+token)
-	userUUID, _, err := water.ParseFromRequest(ctx.Request, utils.RsaPublicKeyPath)
+	userUUID, issuer, _, err := water.ParseFromRequest(ctx.Request, utils.RsaPublicKeyPath)
 	if err != nil {
 		ctx.Abort()
 		return
 	}
 
 	ctx.Set("uuid", userUUID)
+	ctx.Set("issuer", issuer)
 }

@@ -52,7 +52,3 @@ func (srv *IndexService) Endpoint() endpoint.Endpoint {
 		}
 	}
 }
-
-func (srv *IndexService) GetRequest() interface{} {
-	return new(IndexRequest)
-}

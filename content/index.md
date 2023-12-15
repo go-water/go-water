@@ -167,8 +167,11 @@ func NewService() *Handlers {
 
 详细文档请看文档列表，找到对应的使用用例
 
+### 架构源码
++ [https://github.com/go-water/water](https://github.com/go-water/water)
+
 ### 样例仓库
 + [https://github.com/go-water/go-water](https://github.com/go-water/go-water)
 
 ### 官方网站
-+ [https://go-water.cn](https://go-water.cn)
++ [https://iissy.com/go-water](https://iissy.com/go-water)

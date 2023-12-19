@@ -3,9 +3,7 @@ package service
 import (
 	"context"
 	"encoding/csv"
-	"errors"
 	"github.com/go-water/water"
-	"github.com/go-water/water/endpoint"
 	"io"
 	"os"
 )
@@ -37,14 +35,4 @@ func (srv *RewardService) Handle(ctx context.Context, req *RewardRequest) (inter
 	}
 
 	return result, nil
-}
-
-func (srv *RewardService) Endpoint() endpoint.Endpoint {
-	return func(ctx context.Context, req interface{}) (interface{}, error) {
-		if r, ok := req.(*RewardRequest); ok {
-			return srv.Handle(ctx, r)
-		} else {
-			return nil, errors.New("request type error")
-		}
-	}
 }

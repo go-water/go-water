@@ -3,9 +3,7 @@ package service
 import (
 	"bytes"
 	"context"
-	"errors"
 	"github.com/go-water/water"
-	"github.com/go-water/water/endpoint"
 	"github.com/yuin/goldmark"
 	"github.com/yuin/goldmark/extension"
 	"github.com/yuin/goldmark/parser"
@@ -41,14 +39,4 @@ func (srv *IndexService) Handle(ctx context.Context, req *IndexRequest) (interfa
 	}
 
 	return buf.Bytes(), nil
-}
-
-func (srv *IndexService) Endpoint() endpoint.Endpoint {
-	return func(ctx context.Context, req interface{}) (interface{}, error) {
-		if r, ok := req.(*IndexRequest); ok {
-			return srv.Handle(ctx, r)
-		} else {
-			return nil, errors.New("request type error")
-		}
-	}
 }

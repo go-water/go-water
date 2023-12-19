@@ -165,7 +165,7 @@ func NewService() *Handlers {
 }
 ```
 
-详细文档请看文档列表，找到对应的使用用例
+最新的版本请看官方文档，这个仓库是样例仓库，版本偏低，后期不再同步。样例代码会持续同步最新。
 
 ### 架构源码
 + [https://github.com/go-water/water](https://github.com/go-water/water)

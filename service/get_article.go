@@ -3,10 +3,8 @@ package service
 import (
 	"bytes"
 	"context"
-	"errors"
 	"github.com/go-water/go-water/model"
 	"github.com/go-water/water"
-	"github.com/go-water/water/endpoint"
 	"github.com/yuin/goldmark"
 	"github.com/yuin/goldmark/extension"
 	"github.com/yuin/goldmark/parser"
@@ -45,14 +43,4 @@ func (srv *GetArticleService) Handle(ctx context.Context, req *GetArticleRequest
 
 	article.Body = template.HTML(buf.Bytes())
 	return article, nil
-}
-
-func (srv *GetArticleService) Endpoint() endpoint.Endpoint {
-	return func(ctx context.Context, req interface{}) (interface{}, error) {
-		if r, ok := req.(*GetArticleRequest); ok {
-			return srv.Handle(ctx, r)
-		} else {
-			return nil, errors.New("request type error")
-		}
-	}
 }

@@ -2,10 +2,8 @@ package service
 
 import (
 	"context"
-	"errors"
 	"github.com/go-water/go-water/model"
 	"github.com/go-water/water"
-	"github.com/go-water/water/endpoint"
 	"html/template"
 	"time"
 )
@@ -31,14 +29,4 @@ func (srv *UpdatePostService) Handle(ctx context.Context, req *UpdatePostRequest
 	}
 
 	return nil, nil
-}
-
-func (srv *UpdatePostService) Endpoint() endpoint.Endpoint {
-	return func(ctx context.Context, req interface{}) (interface{}, error) {
-		if r, ok := req.(*UpdatePostRequest); ok {
-			return srv.Handle(ctx, r)
-		} else {
-			return nil, errors.New("request type error")
-		}
-	}
 }

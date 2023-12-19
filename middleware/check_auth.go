@@ -18,7 +18,7 @@ func CheckAuth(ctx *gin.Context) {
 	userUUID, issuer, _, err := water.ParseFromRequest(ctx.Request, utils.RsaPublicKeyPath)
 	if err != nil {
 		ctx.Abort()
-		return
+		ctx.Redirect(http.StatusFound, "/login")
 	}
 
 	ctx.Set("uuid", userUUID)

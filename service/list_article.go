@@ -2,10 +2,8 @@ package service
 
 import (
 	"context"
-	"errors"
 	"github.com/go-water/go-water/model"
 	"github.com/go-water/water"
-	"github.com/go-water/water/endpoint"
 )
 
 type ListArticleRequest struct {
@@ -23,14 +21,4 @@ func (srv *ListArticleService) Handle(ctx context.Context, req *ListArticleReque
 	}
 
 	return result, nil
-}
-
-func (srv *ListArticleService) Endpoint() endpoint.Endpoint {
-	return func(ctx context.Context, req interface{}) (interface{}, error) {
-		if r, ok := req.(*ListArticleRequest); ok {
-			return srv.Handle(ctx, r)
-		} else {
-			return nil, errors.New("request type error")
-		}
-	}
 }

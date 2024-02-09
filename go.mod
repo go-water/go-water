@@ -1,13 +1,13 @@
 module github.com/go-water/go-water
 
-go 1.21
+go 1.22
 
 require (
 	github.com/gin-contrib/multitemplate v0.0.0-20231211133547-5f8f48f9d29f
 	github.com/gin-gonic/gin v1.9.1
 	github.com/go-gorp/gorp/v3 v3.1.0
 	github.com/go-sql-driver/mysql v1.7.1
-	github.com/go-water/water v0.3.5
+	github.com/go-water/water v1.0.0
 	github.com/google/uuid v1.5.0
 	github.com/jinzhu/copier v0.4.0
 	github.com/sony/gobreaker v0.5.0
@@ -59,4 +59,4 @@ require (
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
 
-//replace github.com/go-water/water v1.0.0 => ../water
+replace github.com/go-water/water v1.0.0 => ../water

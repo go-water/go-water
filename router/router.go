@@ -21,7 +21,7 @@ func Start() {
 	router.GET("/", H.Index)
 	router.GET("/docs", H.ListDoc)
 	router.GET("/articles", H.ListArticle)
-	router.GET("/article/:id", H.GetArticle)
+	router.GET("/article/{id}", H.GetArticle)
 	router.GET("/reward", H.Reward)
 	router.GET("/about", H.About)
 
@@ -34,7 +34,7 @@ func Start() {
 	admin.POST("/upload", H.Upload)
 	admin.GET("/add", H.Add)
 	admin.POST("/add", H.AddPost)
-	admin.GET("/update/:id", H.Update)
+	admin.GET("/update/{id}", H.Update)
 	admin.POST("/update", H.UpdatePost)
 	admin.GET("/list", H.List)
 

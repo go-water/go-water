@@ -94,7 +94,7 @@ func (h *Handlers) GetArticle(ctx *water.Context) {
 srv.GetLogger().Error(err.Error())
 srv.GetLogger().Info("打印一条日志")
 ```
-srv 就是业务实现 GetArticleService 的实例，在 GetArticleService 方法中，都可以打印日志。（这里封装了 zap 日志组件）
+srv 就是业务实现 GetArticleService 的实例，在 GetArticleService 方法中，都可以打印日志。（这里返回 slog 日志实例）
 
 ### 配置 option
 ```

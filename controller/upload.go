@@ -1,7 +1,7 @@
 package controller
 
 import (
-	"github.com/gin-gonic/gin"
+	"github.com/go-water/water"
 	"github.com/google/uuid"
 	"net/http"
 	"os"
@@ -10,7 +10,7 @@ import (
 	"time"
 )
 
-func (h *Handlers) Upload(ctx *gin.Context) {
+func (h *Handlers) Upload(ctx *water.Context) {
 	result := struct {
 		Default string `json:"default"`
 	}{""}

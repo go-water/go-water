@@ -1,36 +1,35 @@
 package controller
 
 import (
-	"context"
-	"github.com/gin-gonic/gin"
 	"github.com/go-water/go-water/model"
 	"github.com/go-water/go-water/service"
+	"github.com/go-water/water"
 	"net/http"
 )
 
-func (h *Handlers) Add(ctx *gin.Context) {
-	ctx.HTML(http.StatusOK, "add", gin.H{"title": "添加文章"})
+func (h *Handlers) Add(ctx *water.Context) {
+	ctx.HTML(http.StatusOK, "add", water.H{"title": "添加文章"})
 }
 
-func (h *Handlers) AddPost(ctx *gin.Context) {
-	request := new(service.AddPostRequest)
-	if err := ShouldBind(ctx, request); err != nil {
+func (h *Handlers) AddPost(ctx *water.Context) {
+	request, err := water.BindJSON[service.AddPostRequest](ctx)
+	if err != nil {
 		h.loginPost.GetLogger().Error(err.Error())
-		ctx.JSON(http.StatusBadRequest, gin.H{"msg": err.Error()})
+		ctx.JSON(http.StatusBadRequest, water.H{"msg": err.Error()})
 		return
 	}
 
-	_, err := h.addPost.ServerWater(context.Background(), request)
+	_, err = h.addPost.ServerWater(ctx, request)
 	if err != nil {
 		h.reward.GetLogger().Error(err.Error())
-		ctx.JSON(http.StatusBadRequest, gin.H{"msg": err.Error()})
+		ctx.JSON(http.StatusBadRequest, water.H{"msg": err.Error()})
 		return
 	}
 
-	ctx.JSON(http.StatusOK, gin.H{"result": true})
+	ctx.JSON(http.StatusOK, water.H{"result": true})
 }
 
-func (h *Handlers) List(ctx *gin.Context) {
+func (h *Handlers) List(ctx *water.Context) {
 	req := new(service.ListRequest)
 	resp, err := h.list.ServerWater(ctx, req)
 	if err != nil {
@@ -38,10 +37,10 @@ func (h *Handlers) List(ctx *gin.Context) {
 		return
 	}
 
-	ctx.HTML(http.StatusOK, "list", gin.H{"body": resp, "title": "文章列表"})
+	ctx.HTML(http.StatusOK, "list", water.H{"body": resp, "title": "文章列表"})
 }
 
-func (h *Handlers) Update(ctx *gin.Context) {
+func (h *Handlers) Update(ctx *water.Context) {
 	req := new(service.UpdateRequest)
 	req.UrlID = ctx.Param("id")
 	resp, err := h.update.ServerWater(ctx, req)
@@ -51,24 +50,24 @@ func (h *Handlers) Update(ctx *gin.Context) {
 	}
 
 	if result, ok := resp.(*model.Article); ok {
-		ctx.HTML(http.StatusOK, "update", gin.H{"body": result, "title": "修改文章"})
+		ctx.HTML(http.StatusOK, "update", water.H{"body": result, "title": "修改文章"})
 	}
 }
 
-func (h *Handlers) UpdatePost(ctx *gin.Context) {
-	request := new(service.UpdatePostRequest)
-	if err := ShouldBind(ctx, request); err != nil {
+func (h *Handlers) UpdatePost(ctx *water.Context) {
+	request, err := water.BindJSON[service.UpdatePostRequest](ctx)
+	if err != nil {
 		h.loginPost.GetLogger().Error(err.Error())
-		ctx.JSON(http.StatusBadRequest, gin.H{"msg": err.Error()})
+		ctx.JSON(http.StatusBadRequest, water.H{"msg": err.Error()})
 		return
 	}
 
-	_, err := h.updatePost.ServerWater(ctx, request)
+	_, err = h.updatePost.ServerWater(ctx, request)
 	if err != nil {
 		h.reward.GetLogger().Error(err.Error())
-		ctx.JSON(http.StatusBadRequest, gin.H{"msg": err.Error()})
+		ctx.JSON(http.StatusBadRequest, water.H{"msg": err.Error()})
 		return
 	}
 
-	ctx.JSON(http.StatusOK, gin.H{"result": true})
+	ctx.JSON(http.StatusOK, water.H{"result": true})
 }

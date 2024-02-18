@@ -1,14 +1,14 @@
 package router
 
 import (
-	"github.com/gin-contrib/multitemplate"
-	"github.com/gin-gonic/gin"
 	. "github.com/go-water/go-water/controller"
 	"github.com/go-water/go-water/middleware"
+	"github.com/go-water/water"
+	"github.com/go-water/water/multitemplate"
 )
 
 func Start() {
-	router := gin.Default()
+	router := water.New()
 	router.Static("/styles", "./public/styles")
 	router.Static("/scripts", "./public/scripts")
 	router.Static("/images", "./public/images")
@@ -38,7 +38,7 @@ func Start() {
 	admin.POST("/update", H.UpdatePost)
 	admin.GET("/list", H.List)
 
-	router.Run(":80")
+	router.Serve(":80")
 }
 
 func createMyRender() multitemplate.Renderer {

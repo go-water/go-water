@@ -5,7 +5,6 @@ import (
 	"github.com/go-water/go-water/helpers"
 	"github.com/go-water/go-water/model"
 	"github.com/go-water/go-water/router"
-	"github.com/go-water/water"
 )
 
 func main() {
@@ -14,7 +13,6 @@ func main() {
 
 func init() {
 	helpers.InitConfig()
-	water.InitZap()
 	model.InitDB()
 	controller.InitService()
 }

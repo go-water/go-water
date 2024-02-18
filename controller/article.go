@@ -1,14 +1,14 @@
 package controller
 
 import (
-	"github.com/gin-gonic/gin"
 	"github.com/go-water/go-water/model"
 	"github.com/go-water/go-water/service"
+	"github.com/go-water/water"
 	"html/template"
 	"net/http"
 )
 
-func (h *Handlers) Index(ctx *gin.Context) {
+func (h *Handlers) Index(ctx *water.Context) {
 	req := new(service.IndexRequest)
 	resp, err := h.index.ServerWater(ctx, req)
 	if err != nil {
@@ -17,11 +17,11 @@ func (h *Handlers) Index(ctx *gin.Context) {
 	}
 
 	if result, ok := resp.([]byte); ok {
-		ctx.HTML(http.StatusOK, "index", gin.H{"body": template.HTML(result), "title": "go-water 官方网站"})
+		ctx.HTML(http.StatusOK, "index", water.H{"body": template.HTML(result), "title": "go-water 官方网站"})
 	}
 }
 
-func (h *Handlers) ListDoc(ctx *gin.Context) {
+func (h *Handlers) ListDoc(ctx *water.Context) {
 	req := new(service.ListDocRequest)
 	req.Kind = model.ArticleKindDoc
 	resp, err := h.listDoc.ServerWater(ctx, req)
@@ -30,10 +30,10 @@ func (h *Handlers) ListDoc(ctx *gin.Context) {
 		return
 	}
 
-	ctx.HTML(http.StatusOK, "articles", gin.H{"body": resp, "title": "文档"})
+	ctx.HTML(http.StatusOK, "articles", water.H{"body": resp, "title": "文档"})
 }
 
-func (h *Handlers) ListArticle(ctx *gin.Context) {
+func (h *Handlers) ListArticle(ctx *water.Context) {
 	req := new(service.ListArticleRequest)
 	req.Kind = model.ArticleKindTech
 	resp, err := h.listArticle.ServerWater(ctx, req)
@@ -42,10 +42,10 @@ func (h *Handlers) ListArticle(ctx *gin.Context) {
 		return
 	}
 
-	ctx.HTML(http.StatusOK, "articles", gin.H{"body": resp, "title": "技术文章"})
+	ctx.HTML(http.StatusOK, "articles", water.H{"body": resp, "title": "技术文章"})
 }
 
-func (h *Handlers) GetArticle(ctx *gin.Context) {
+func (h *Handlers) GetArticle(ctx *water.Context) {
 	id := ctx.Param("id")
 	req := new(service.GetArticleRequest)
 	req.UrlID = id
@@ -60,5 +60,5 @@ func (h *Handlers) GetArticle(ctx *gin.Context) {
 		title = article.Title
 	}
 
-	ctx.HTML(http.StatusOK, "detail", gin.H{"body": resp, "title": title})
+	ctx.HTML(http.StatusOK, "detail", water.H{"body": resp, "title": title})
 }

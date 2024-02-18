@@ -1,23 +1,16 @@
-简介：go-water 是一款设计层面的框架，帮助您更好的使用 web 框架（比如：gin，iris，beego，echo等），更好的业务隔离，更好的系统设计，通过一系列接口、规范、约定、中间件，深度解耦业务系统。
+简介：go-water 是一款设计层面的 web 框架（像 gin，iris，beego，echo 一样，追求卓越）。 我们使命：更好的业务隔离，更好的系统设计，通过一系列接口、规范、约定、中间件，深度解耦业务系统。
 
 ### 安装
 ```
 go get -u github.com/go-water/water
 ```
-
-### 核心函数类型
-```
-type Endpoint func(ctx context.Context, req any) (any, error)
-type Middleware func(Endpoint) Endpoint
-```
-业务接口 Service 包含一个方法返回这个类型，见 Service 接口定义
+go-water 除了实现 web 框架必要的组件以外，还实现了业务设计，每个业务接口（即一个数据请求/api/getData，或者一个视图页面/homePage）抽象成一个 Handler 接口，和一个 Service 接口。Handler 在应用层创建，Service 在业务层创建。
 
 ### 介绍 Service 接口
 ```
 type Service interface {
-	Endpoint() endpoint.Endpoint
 	Name(srv Service) string
-	SetLogger(l *zap.Logger)
+	SetLogger(l *slog.Logger)
 }
 ```
 你所有的业务接口得都实现这个接口，这个是核心业务接口，同时业务服务还包含一个嵌套的ServerBase，自动获得它的方法
@@ -25,12 +18,12 @@ type Service interface {
 ### 介绍内置的嵌套结构体 ServerBase
 ```
 type ServerBase struct {
-	l *zap.Logger
+	l *slog.Logger
 }
 
 func (s *ServerBase) Name(srv Service) string
-func (s *ServerBase) GetLogger() *zap.Logger
-func (s *ServerBase) SetLogger(l *zap.Logger)
+func (s *ServerBase) GetLogger() *slog.Logger
+func (s *ServerBase) SetLogger(l *slog.Logger)
 ```
 这个结构体嵌套进业务结构体，丰富业务服务的功能，简化代码，使得业务结构体获得两个读写日志相关的方法，方法Name用来注入服务接口名，打印日志带上接口名更加友好
 
@@ -38,7 +31,7 @@ func (s *ServerBase) SetLogger(l *zap.Logger)
 ```
 type Handler interface {
 	ServerWater(ctx context.Context, req any) (any, error)
-	GetLogger() *zap.Logger
+	GetLogger() *slog.Logger
 }
 ```
 Handler 可以理解为接口 Service 的代理接口，它包装 Service，隐藏调用细节
@@ -57,18 +50,8 @@ func (srv *GetArticleService) Handle(ctx context.Context, req *GetArticleRequest
 	article := new(Article)
 	return article, nil
 }
-
-func (srv *GetArticleService) Endpoint() endpoint.Endpoint {
-	return func(ctx context.Context, req interface{}) (interface{}, error) {
-		if r, ok := req.(*GetArticleRequest); ok {
-			return srv.Handle(ctx, r)
-		} else {
-			return nil, errors.New("request type error")
-		}
-	}
-}
 ```
-仅仅需要实现两个方法，其中两个方法是为了实现 Service 接口，由于嵌套结构体已经实现，所以不用再实现，Handle 方法是获取数据层数据，或者其他业务数据
+这个结构体由于嵌套结构体，所以它实现了接口 Service，所以不用再实现，Handle 方法是获取数据层数据
 
 ### 创建一个 Handler，并归入 Handlers 结构体
 ```
@@ -84,9 +67,9 @@ func NewService() *Handlers {
 ```
 每个业务接口可以理解为一个 Handler，每个业务接口实现可以理解为一个 Service，创建 Handler 就是将 Service 接口实现作为参数传递给 water.NewHandler，嵌套一个 ServerBase 可以重复减少代码量
 
-### 控制器层调用，加入我们使用gin web框架
+### 控制器层调用
 ```
-func (h *Handlers) GetArticle(ctx *gin.Context) {
+func (h *Handlers) GetArticle(ctx *water.Context) {
 	id := ctx.Param("id")
 	req := new(service.GetArticleRequest)
 	req.UrlID = id
@@ -101,7 +84,7 @@ func (h *Handlers) GetArticle(ctx *gin.Context) {
 		title = article.Title
 	}
 
-	ctx.HTML(http.StatusOK, "detail", gin.H{"body": resp, "title": title})
+	ctx.HTML(http.StatusOK, "detail", water.H{"body": resp, "title": title})
 }
 ```
 把接口控制器函数写成 Handlers 方法，小写字母打头，避免字段与方法重名
@@ -113,34 +96,25 @@ srv.GetLogger().Info("打印一条日志")
 ```
 srv 就是业务实现 GetArticleService 的实例，在 GetArticleService 方法中，都可以打印日志。（这里封装了 zap 日志组件）
 
-### 错误处理
-```
-type ErrorHandler interface {
-	Handle(ctx context.Context, err error)
-}
-```
-每个业务服务接口，比如 GetArticleService 层，如果发生 error，低层会自动打印日志，日志里面会带上[GetArticleService]，以便区分，用户可以通过下面的 option 改写日志的方式，只需实现上面接口，然后在创建业务接口实现时改写行为。
-
 ### 配置 option
 ```
-type ServerOption func(*Server)
+type ServerOption func(h *handler)
 
-// 自定义错误处理，改写低层错误处理
-func ServerErrorHandler(errorHandler ErrorHandler) ServerOption {
-	return func(s *Server) { s.errorHandler = errorHandler }
-}
-
-// 添加后置执行器
 type ServerFinalizerFunc func(ctx context.Context, err error)
 
 func ServerFinalizer(f ...ServerFinalizerFunc) ServerOption {
-	return func(s *Server) { s.finalizer = append(s.finalizer, f...) }
+	return func(h *handler) { h.finalizer = append(h.finalizer, f...) }
 }
 
-// 限流
 func ServerLimiter(interval time.Duration, b int) ServerOption {
-	return func(s *Server) {
-		s.limit = rate.NewLimiter(rate.Every(interval), b)
+	return func(h *handler) {
+		h.limit = rate.NewLimiter(rate.Every(interval), b)
+	}
+}
+
+func ServerBreaker(breaker *gobreaker.CircuitBreaker) ServerOption {
+	return func(h *handler) {
+		h.breaker = breaker
 	}
 }
 ```
@@ -149,10 +123,10 @@ func ServerLimiter(interval time.Duration, b int) ServerOption {
 ### JWT 集成
 ```
 // 创建 token
-func SetAuthToken(uniqueUser, privateKeyPath string, expire time.Duration) (tokenString string, err error)
+func SetAuthToken(uniqueUser, issuer, privateKeyPath string, expire time.Duration) (tokenString string, err error)
 
 // 验证 token，兼容 http,ws
-func ParseFromRequest(req *http.Request, publicKeyPath string) (uniqueUser, signature string, err error)
+func ParseFromRequest(req *http.Request, publicKeyPath string) (uniqueUser, issuer, signature string, err error)
 ```
 
 ### 限流，通过 option 将限流的中间件用上
@@ -165,7 +139,8 @@ func NewService() *Handlers {
 }
 ```
 
-最新的版本请看官方文档，这个仓库是样例仓库，版本偏低，后期不再同步。样例代码会持续同步最新。
+### 注意
+仓库代码已更新到 v0.8.2
 
 ### 架构源码
 + [https://github.com/go-water/water](https://github.com/go-water/water)
@@ -174,4 +149,4 @@ func NewService() *Handlers {
 + [https://github.com/go-water/go-water](https://github.com/go-water/go-water)
 
 ### 官方网站
-+ [https://iissy.com/go-water](https://iissy.com/go-water)
++ [https://go-water.cn](https://go-water.cn)

@@ -118,7 +118,7 @@ func ServerBreaker(breaker *gobreaker.CircuitBreaker) ServerOption {
 	}
 }
 ```
-结构体 Server 实现了 Handler 接口，配置 Server，其实是配置 Handler
+结构体 handler 实现了 Handler 接口，配置 handler，其实是配置 Handler
 
 ### JWT 集成
 ```

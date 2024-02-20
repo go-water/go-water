@@ -140,7 +140,7 @@ func NewService() *Handlers {
 ```
 
 ### 注意
-仓库代码已更新到 v0.8.2
+仓库代码已更新到 v0.8.4
 
 ### 架构源码
 + [https://github.com/go-water/water](https://github.com/go-water/water)

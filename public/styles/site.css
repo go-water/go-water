@@ -45,10 +45,10 @@ a:hover {
     margin-bottom: 10px;
 }
 
+.linker a { color:#C32528;font-weight:300;padding-left: 15px; }
+
 #footer {
     margin: 10px auto 0 auto;
-    padding: 20px 0 20px 0;
-    text-align: center;
     background-color: #fefefe;
     clear: both;
     max-width: 1300px;

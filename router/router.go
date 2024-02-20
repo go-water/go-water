@@ -30,13 +30,15 @@ func Start() {
 	router.GET("/logout", H.Logout)
 
 	admin := router.Group("/admin")
-	admin.Use(middleware.CheckAuth)
-	admin.POST("/upload", H.Upload)
-	admin.GET("/add", H.Add)
-	admin.POST("/add", H.AddPost)
-	admin.GET("/update/{id}", H.Update)
-	admin.POST("/update", H.UpdatePost)
-	admin.GET("/list", H.List)
+	{
+		admin.Use(middleware.CheckAuth)
+		admin.POST("/upload", H.Upload)
+		admin.GET("/add", H.Add)
+		admin.POST("/add", H.AddPost)
+		admin.GET("/update/{id}", H.Update)
+		admin.POST("/update", H.UpdatePost)
+		admin.GET("/list", H.List)
+	}
 
 	router.Serve(":80")
 }

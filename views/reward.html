@@ -1,25 +1,25 @@
 {{define "content"}}
-<div id="pay">
+<div class="w-100">
     <div class="text-center py-2">
         <img src="/pay.jpg?20230214" />
     </div>
 
-    <div class="container">
+    <div class="container px-5">
         <div class="d-flex flex-row bg-light">
-            <div class="site-item col-4" style="font-weight: bolder;">
+            <div class="flex-fill site-item col-4" style="font-weight: bolder;">
                 打赏人
             </div>
-            <div class="site-item col-4" style="font-weight: bolder;">
+            <div class="flex-fill site-item col-4" style="font-weight: bolder;">
                 日期
             </div>
-            <div class="site-item col-4" style="font-weight: bolder;">
+            <div class="flex-fill site-item col-4" style="font-weight: bolder;">
                 金额（￥）
             </div>
         </div>
         {{range .body}}
         <div class="d-flex flex-row">
             {{range .}}
-            <div class="site-item col-4">
+            <div class="flex-fill site-item col-4">
                 <div class="pay-item">{{.}}</div>
             </div>
             {{end}}

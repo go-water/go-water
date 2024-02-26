@@ -30,33 +30,21 @@ func (h *Handlers) ListDoc(ctx *water.Context) {
 		return
 	}
 
-	ctx.HTML(http.StatusOK, "articles", water.H{"body": resp, "title": "文档"})
+	ctx.HTML(http.StatusOK, "docs", water.H{"body": resp, "title": "文档"})
 }
 
-func (h *Handlers) ListArticle(ctx *water.Context) {
-	req := new(service.ListArticleRequest)
-	req.Kind = model.ArticleKindTech
-	resp, err := h.listArticle.ServerWater(ctx, req)
-	if err != nil {
-		h.listArticle.GetLogger().Error(err.Error())
-		return
-	}
-
-	ctx.HTML(http.StatusOK, "articles", water.H{"body": resp, "title": "技术文章"})
-}
-
-func (h *Handlers) GetArticle(ctx *water.Context) {
+func (h *Handlers) GetDoc(ctx *water.Context) {
 	id := ctx.Param("id")
-	req := new(service.GetArticleRequest)
+	req := new(service.GetDocRequest)
 	req.UrlID = id
-	resp, err := h.getArticle.ServerWater(ctx, req)
+	resp, err := h.getDoc.ServerWater(ctx, req)
 	if err != nil {
-		h.getArticle.GetLogger().Error(err.Error())
+		h.getDoc.GetLogger().Error(err.Error())
 		return
 	}
 
 	title := ""
-	if article, ok := resp.(*model.Article); ok {
+	if article, ok := resp.(*service.GetDocResponse); ok {
 		title = article.Title
 	}
 

@@ -41,3 +41,24 @@ $("#update").click(function(){
         }
     });
 });
+
+$(document).ready(function(){
+    let easyMDE = new EasyMDE({
+        element: document.getElementById('MyID'),
+        status: ["autosave", "lines", "words", "upload-image"],
+        spellChecker: false,
+        toolbar: ['undo', 'redo', '|', 'bold', 'italic', 'strikethrough', 'heading-1', 'heading-2', 'heading-3', '|', 'image', 'code', 'quote', 'link', 'clean-block', 'ordered-list', 'unordered-list', '|', 'upload-image', 'table','preview', 'side-by-side', 'fullscreen', '|', 'guide'],
+        imageUploadEndpoint: "/api/upload",
+        imagePathAbsolute: true,
+        imageCSRFHeader: true,
+        imageCSRFName: "Authorization",
+        imageCSRFToken: 'Bearer ' + localStorage.getItem('token'),
+        uploadImage: true,
+    });
+
+    console.log(document.getElementById('MyID'));
+
+    easyMDE.codemirror.on("change", () => {
+        $("#MyID").val(easyMDE.value());
+    });
+});

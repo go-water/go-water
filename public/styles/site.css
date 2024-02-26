@@ -13,6 +13,8 @@ body {
 }
 * { box-sizing: border-box; }
 
+.main-layout { margin:0 auto 0 auto;max-width: 1300px; }
+
 a:link {
     color: #000000;
     text-decoration: none;
@@ -57,7 +59,6 @@ a:hover {
 .title {
     font-size: 20px !important;
     font-weight: bold;
-    border-bottom: 1px solid #eeeeee;
     color: #C32528;
     font-family: 'museo-1', 'museo-2', Verdana;
     letter-spacing: 1px;
@@ -81,3 +82,8 @@ a:hover {
 .login-name { border: none;border-bottom: 1px solid #e8e8e8;width: 100%;box-shadow: none;outline: none;line-height: 30px;padding-left: 10px; }
 
 .navbar-color { color: #17C4BB !important; }
+.text-nine { color: #999999; }
+
+.EasyMDEContainer { flex: 1;display: flex;width: 100%;flex-direction: column;height: 0; }
+.EasyMDEContainer .table { width: initial; }
+.EasyMDEContainer .CodeMirror { flex: 1; }

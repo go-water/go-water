@@ -11,8 +11,6 @@ import (
 type AddPostRequest struct {
 	UrlID string        `form:"url_id" binding:"required"`
 	Title string        `form:"title" binding:"required"`
-	Icon  string        `form:"icon" binding:"required"`
-	Kind  int           `form:"kind" binding:"required"`
 	Brief string        `form:"brief" binding:"required"`
 	Body  template.HTML `form:"body" binding:"required"`
 }

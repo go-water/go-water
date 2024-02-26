@@ -8,28 +8,6 @@
                 <input type="text" name="title" class="form-control" value="{{.body.Title}}">
             </div>
         </div>
-        <div class="flex-row d-flex mt-3">
-            <div class="flex-column d-flex w-25">
-                <label class="control-label fs-c8">文章类型</label>
-                <div class="mt-2">
-                    <select name="kind" class="form-select">
-                        <option {{ if eq .body.Kind 1 }}selected{{end}} value="1">文档</option>
-                        <option {{ if eq .body.Kind 2 }}selected{{end}} value="2">文章</option>
-                        <option {{ if eq .body.Kind 3 }}selected{{end}} value="3">测试</option>
-                    </select>
-                </div>
-            </div>
-            <div class="flex-column ms-4 d-flex w-75">
-                <label class="control-label fs-c8">图片地址</label>
-                <div class="d-flex align-items-center mt-2" style="position: relative;">
-                    <div class="d-flex align-items-center justify-content-center position-absolute" style="right: 0;">
-                        <span class="position-absolute" style="width: 80px;right: 0;"> 选择图片 </span>
-                        <input type="file" id="upload" name="file" class="position-absolute opacity-0" style="width: 80px;right: 0;"/>
-                    </div>
-                    <input type="text" id="uploadIcon" name="icon" value="{{.body.Icon}}" class="form-control" />
-                </div>
-            </div>
-        </div>
         <div class="d-flex flex-column flex-fill">
             <div class="d-flex mt-3 fs-c8">
                 简介
@@ -41,7 +19,7 @@
                 描述（Markdown）
             </div>
             <div class="flex-column d-flex flex-fill mt-3" style="height: 0;">
-                <textarea name="body" class="form-control flex-fill">{{.body.Body}}</textarea>
+                <textarea id="MyID" name="body" class="form-control flex-fill">{{.body.Body}}</textarea>
             </div>
             <div>
                 <input type="button" id="update" value="更新" class="form-control mt-3">

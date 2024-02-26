@@ -11,8 +11,6 @@ import (
 type UpdatePostRequest struct {
 	UrlID       string        `form:"url_id"`
 	Title       string        `form:"title"`
-	Icon        string        `form:"icon"`
-	Kind        int           `form:"kind"`
 	Brief       string        `form:"brief"`
 	Body        template.HTML `form:"body"`
 	UpdatedTime time.Time     `json:"UpdatedTime"`
@@ -23,7 +21,7 @@ type UpdatePostService struct {
 }
 
 func (srv *UpdatePostService) Handle(ctx context.Context, req *UpdatePostRequest) (interface{}, error) {
-	err := model.UpdateArticle(model.DbMap, req.UrlID, req.Title, req.Icon, req.Brief, req.Kind, req.Body, time.Now())
+	err := model.UpdateArticle(model.DbMap, req.UrlID, req.Title, req.Brief, req.Body, time.Now())
 	if err != nil {
 		return nil, err
 	}

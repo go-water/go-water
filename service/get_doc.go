@@ -12,15 +12,20 @@ import (
 	"html/template"
 )
 
-type GetArticleRequest struct {
+type GetDocRequest struct {
 	UrlID string `json:"url_id"`
 }
 
-type GetArticleService struct {
+type GetDocResponse struct {
+	*model.Article
+	List []*model.Article `json:"list"`
+}
+
+type GetDocService struct {
 	*water.ServerBase
 }
 
-func (srv *GetArticleService) Handle(ctx context.Context, req *GetArticleRequest) (interface{}, error) {
+func (srv *GetDocService) Handle(ctx context.Context, req *GetDocRequest) (interface{}, error) {
 	article, err := model.GetArticle(model.DbMap, req.UrlID)
 	if err != nil {
 		return nil, err
@@ -42,5 +47,10 @@ func (srv *GetArticleService) Handle(ctx context.Context, req *GetArticleRequest
 	}
 
 	article.Body = template.HTML(buf.Bytes())
-	return article, nil
+	list, _ := model.ListArticles(model.DbMap, article.Kind)
+	resp := &GetDocResponse{
+		article, list,
+	}
+
+	return resp, nil
 }

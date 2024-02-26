@@ -52,7 +52,7 @@ func List(db gorp.SqlExecutor) ([]*Article, error) {
 
 func ListArticles(db gorp.SqlExecutor, kind int) ([]*Article, error) {
 	result := make([]*Article, 0)
-	sql := "SELECT url_id,title,icon,brief,create_time FROM article WHERE kind=? ORDER BY id DESC;"
+	sql := "SELECT url_id,title FROM article WHERE kind=? ORDER BY id;"
 	_, err := db.Select(&result, sql, kind)
 	if err != nil {
 		return nil, err
@@ -76,9 +76,20 @@ func GetArticle(db gorp.SqlExecutor, urlID string) (*Article, error) {
 	}
 }
 
-func UpdateArticle(db gorp.SqlExecutor, urlID, title, icon, brief string, kind int, body template.HTML, updatedTime time.Time) error {
-	sql := "UPDATE article set title=?,icon=?,kind=?,brief=?,body=?,updated_time=? WHERE url_id=?;"
-	_, err := db.Exec(sql, title, icon, kind, brief, body, updatedTime, urlID)
+func TopArticles(db gorp.SqlExecutor, top, kind int) ([]*Article, error) {
+	result := make([]*Article, 0)
+	sql := "select url_id,title,icon,brief,create_time from article WHERE kind=? ORDER BY id DESC limit ?;"
+	_, err := db.Select(&result, sql, kind, top)
+	if err != nil {
+		return nil, err
+	}
+
+	return result, err
+}
+
+func UpdateArticle(db gorp.SqlExecutor, urlID, title, brief string, body template.HTML, updatedTime time.Time) error {
+	sql := "UPDATE article set title=?,brief=?,body=?,updated_time=? WHERE url_id=?;"
+	_, err := db.Exec(sql, title, brief, body, updatedTime, urlID)
 	if err != nil {
 		return err
 	}

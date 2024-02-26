@@ -11,9 +11,9 @@
     <title>{{.title}}</title>
 </head>
 <body spellcheck="false">
-<div class="d-flex flex-column h-100" style="margin:0 auto 0 auto;max-width: 1200px;">
+<div class="d-flex flex-column h-100 main-layout">
     {{template "_header" .}}
-<div class="flex-fill w-100 bg-white">
+<div class="d-flex flex-fill w-100 bg-white">
     {{template "content" .}}
 </div>
 <div class="w-100" id="footer">

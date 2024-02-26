@@ -47,7 +47,7 @@ func (srv *GetDocService) Handle(ctx context.Context, req *GetDocRequest) (inter
 	}
 
 	article.Body = template.HTML(buf.Bytes())
-	list, _ := model.ListArticles(model.DbMap, article.Kind)
+	list, _ := model.ListArticles(model.DbMap)
 	resp := &GetDocResponse{
 		article, list,
 	}

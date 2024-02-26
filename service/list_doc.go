@@ -47,7 +47,7 @@ func (srv *ListDocService) Handle(ctx context.Context, req *ListDocRequest) (int
 		return nil, err
 	}
 
-	result, err := model.ListArticles(model.DbMap, req.Kind)
+	result, err := model.ListArticles(model.DbMap)
 	if err != nil {
 		return nil, err
 	}

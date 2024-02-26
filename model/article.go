@@ -50,10 +50,10 @@ func List(db gorp.SqlExecutor) ([]*Article, error) {
 	return result, err
 }
 
-func ListArticles(db gorp.SqlExecutor, kind int) ([]*Article, error) {
+func ListArticles(db gorp.SqlExecutor) ([]*Article, error) {
 	result := make([]*Article, 0)
-	sql := "SELECT url_id,title FROM article WHERE kind=? ORDER BY id;"
-	_, err := db.Select(&result, sql, kind)
+	sql := "SELECT url_id,title FROM article ORDER BY id;"
+	_, err := db.Select(&result, sql)
 	if err != nil {
 		return nil, err
 	}

@@ -27,7 +27,7 @@ type ListDocService struct {
 }
 
 func (srv *ListDocService) Handle(ctx context.Context, req *ListDocRequest) (interface{}, error) {
-	mdBytes, err := os.ReadFile("./content/index.md")
+	mdBytes, err := os.ReadFile("./content/doc.md")
 	if err != nil {
 		return nil, err
 	}

@@ -1,152 +1,134 @@
 简介：go-water 是一款设计层面的 web 框架（像 gin，iris，beego，echo 一样，追求卓越）。 我们使命：更好的业务隔离，更好的系统设计，通过一系列接口、规范、约定、中间件，深度解耦业务系统。
 
+### 星星增长趋势
+[![Stargazers over time](https://starchart.cc/go-water/water.svg)](https://starchart.cc/go-water/water)
+
 ### 安装
 ```
 go get -u github.com/go-water/water
 ```
-go-water 除了实现 web 框架必要的组件以外，还实现了业务设计，每个业务接口（即一个数据请求/api/getData，或者一个视图页面/homePage）抽象成一个 Handler 接口，和一个 Service 接口。Handler 在应用层创建，Service 在业务层创建。
 
-### 介绍 Service 接口
-```
-type Service interface {
-	Name(srv Service) string
-	SetLogger(l *slog.Logger)
-}
-```
-你所有的业务接口得都实现这个接口，这个是核心业务接口，同时业务服务还包含一个嵌套的ServerBase，自动获得它的方法
+### 技术概览
++ slog 日志
++ 中间件
++ 多模板支持
++ rsa 加密，openssl 生成公/私钥对
++ jwt 登陆认证
++ pool 管理请求参数
++ option 配置修改
++ rate limit（限流）
++ circuit breaker（熔断）
 
-### 介绍内置的嵌套结构体 ServerBase
+用例
 ```
-type ServerBase struct {
-	l *slog.Logger
-}
+package main
 
-func (s *ServerBase) Name(srv Service) string
-func (s *ServerBase) GetLogger() *slog.Logger
-func (s *ServerBase) SetLogger(l *slog.Logger)
-```
-这个结构体嵌套进业务结构体，丰富业务服务的功能，简化代码，使得业务结构体获得两个读写日志相关的方法，方法Name用来注入服务接口名，打印日志带上接口名更加友好
+import (
+	"fmt"
+	"net/http"
+	"time"
 
-### 介绍 Handler 接口
-```
-type Handler interface {
-	ServerWater(ctx context.Context, req any) (any, error)
-	GetLogger() *slog.Logger
-}
-```
-Handler 可以理解为接口 Service 的代理接口，它包装 Service，隐藏调用细节
+	"github.com/go-water/water"
+	"github.com/go-water/water/multitemplate"
+)
 
-### 如何创建一个具体的业务接口 Service (GetArticleService)，经过简化，保留核心代码
-```
-type GetArticleRequest struct {
-	UrlID string `json:"url_id"`
-}
+func main() {
+	router := water.New()
+	router.HTMLRender = createMyRender()
 
-type GetArticleService struct {
-	*water.ServerBase
-}
-
-func (srv *GetArticleService) Handle(ctx context.Context, req *GetArticleRequest) (interface{}, error) {
-	article := new(Article)
-	return article, nil
-}
-```
-这个结构体由于嵌套结构体，所以它实现了接口 Service，所以不用再实现，Handle 方法是获取数据层数据
-
-### 创建一个 Handler，并归入 Handlers 结构体
-```
-type Handlers struct {
-	getArticle  water.Handler
-}
-
-func NewService() *Handlers {
-	return &Handlers{
-		getArticle:  water.NewHandler(&GetArticleService{ServerBase: &water.ServerBase{}}),
-	}
-}
-```
-每个业务接口可以理解为一个 Handler，每个业务接口实现可以理解为一个 Service，创建 Handler 就是将 Service 接口实现作为参数传递给 water.NewHandler，嵌套一个 ServerBase 可以重复减少代码量
-
-### 控制器层调用
-```
-func (h *Handlers) GetArticle(ctx *water.Context) {
-	id := ctx.Param("id")
-	req := new(service.GetArticleRequest)
-	req.UrlID = id
-	resp, err := h.getArticle.ServerWater(ctx, req)
-	if err != nil {
-		h.getArticle.GetLogger().Error(err.Error())
-		return
+	router.Use(Logger)
+	router.GET("/", Index)
+	v2 := router.Group("/v2")
+	{
+		v2.GET("/hello", GetHello)
 	}
 
-	title := ""
-	if article, ok := resp.(*model.Article); ok {
-		title = article.Title
-	}
-
-	ctx.HTML(http.StatusOK, "detail", water.H{"body": resp, "title": title})
-}
-```
-把接口控制器函数写成 Handlers 方法，小写字母打头，避免字段与方法重名
-
-### 日志处理
-```
-srv.GetLogger().Error(err.Error())
-srv.GetLogger().Info("打印一条日志")
-```
-srv 就是业务实现 GetArticleService 的实例，在 GetArticleService 方法中，都可以打印日志。（这里返回 slog 日志实例）
-
-### 配置 option
-```
-type ServerOption func(h *handler)
-
-type ServerFinalizerFunc func(ctx context.Context, err error)
-
-func ServerFinalizer(f ...ServerFinalizerFunc) ServerOption {
-	return func(h *handler) { h.finalizer = append(h.finalizer, f...) }
+	router.Serve(":80")
 }
 
-func ServerLimiter(interval time.Duration, b int) ServerOption {
-	return func(h *handler) {
-		h.limit = rate.NewLimiter(rate.Every(interval), b)
+func Index(ctx *water.Context) {
+	ctx.HTML(http.StatusOK, "index", water.H{"title": "我是标题", "body": "你好，朋友。"})
+}
+
+func GetHello(ctx *water.Context) {
+	ctx.JSON(http.StatusOK, water.H{"msg": "Hello World!"})
+}
+
+func Logger(handlerFunc water.HandlerFunc) water.HandlerFunc {
+	return func(ctx *water.Context) {
+		start := time.Now()
+		defer func() {
+			msg := fmt.Sprintf("[WATER] %v | %15s | %13v | %-7s %s",
+				time.Now().Format("2006/01/02 - 15:04:05"),
+				ctx.ClientIP(),
+				time.Since(start),
+				ctx.Request.Method,
+				ctx.Request.URL.Path,
+			)
+
+			fmt.Println(msg)
+		}()
+
+		handlerFunc(ctx)
 	}
 }
 
-func ServerBreaker(breaker *gobreaker.CircuitBreaker) ServerOption {
-	return func(h *handler) {
-		h.breaker = breaker
-	}
+func createMyRender() multitemplate.Renderer {
+	r := multitemplate.NewRenderer()
+	r.AddFromFiles("index", "views/layout.html", "views/index.html", "views/_header.html", "views/_footer.html")
+	return r
 }
 ```
-结构体 handler 实现了 Handler 接口，配置 handler，其实是配置 Handler
-
-### JWT 集成
+views/layout.html
 ```
-// 创建 token
-func SetAuthToken(uniqueUser, issuer, privateKeyPath string, expire time.Duration) (tokenString string, err error)
-
-// 验证 token，兼容 http,ws
-func ParseFromRequest(req *http.Request, publicKeyPath string) (uniqueUser, issuer, signature string, err error)
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>{{.title}}</title>
+</head>
+<body>
+<div>
+    <div>
+        {{template "_header"}}
+    </div>
+    <div>
+        {{template "content" .}}
+    </div>
+    <div>
+        {{template "_footer"}}
+    </div>
+</div>
+</body>
+</html>
 ```
-
-### 限流，通过 option 将限流的中间件用上
+views/index.html
 ```
-func NewService() *Handlers {
-	option := water.ServerLimiter(time.Minute, 100)
-	return &Handlers{
-		getArticle:  water.NewHandler(&service.GetArticleService{ServerBase: &water.ServerBase{}}, option),
-	}
-}
+{{define "content"}}
+我是内容：{{.body}}
+{{end}}
 ```
-
-### 注意
-仓库代码已更新到 v0.8.4
-
-### 架构源码
-+ [https://github.com/go-water/water](https://github.com/go-water/water)
+views/_header.html
+```
+{{define "_header"}}
+我是 Header。
+{{end}}
+```
+views/_footer.html
+```
+{{define "_footer"}}
+我是 Footer。
+{{end}}
+```
 
 ### 样例仓库
 + [https://github.com/go-water/go-water](https://github.com/go-water/go-water)
 
-### 官方网站
+### 官方文档
 + [https://go-water.cn](https://go-water.cn)
+
+### 参考仓库
++ [kit](https://github.com/go-kit/kit)
++ [gin](https://github.com/gin-gonic/gin)
++ [grape](https://github.com/hossein1376/grape)

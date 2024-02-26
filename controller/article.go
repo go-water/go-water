@@ -30,7 +30,7 @@ func (h *Handlers) ListDoc(ctx *water.Context) {
 		return
 	}
 
-	ctx.HTML(http.StatusOK, "docs", water.H{"body": resp, "title": "文档"})
+	ctx.HTML(http.StatusOK, "doc", water.H{"body": resp, "title": "文档"})
 }
 
 func (h *Handlers) GetDoc(ctx *water.Context) {
@@ -48,5 +48,5 @@ func (h *Handlers) GetDoc(ctx *water.Context) {
 		title = article.Title
 	}
 
-	ctx.HTML(http.StatusOK, "detail", water.H{"body": resp, "title": title})
+	ctx.HTML(http.StatusOK, "doc", water.H{"body": resp, "title": title})
 }

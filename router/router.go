@@ -12,6 +12,8 @@ func Start() {
 	router.Static("/styles", "./public/styles")
 	router.Static("/scripts", "./public/scripts")
 	router.Static("/images", "./public/images")
+	router.Static("/easymde", "./public/easymde")
+	router.Static("/fonts", "./public/fonts")
 	router.StaticFile("/banner.png", "./public/banner.png")
 	router.StaticFile("/favicon.ico", "./public/favicon.ico")
 	router.StaticFile("/pay.jpg", "./public/pay.jpg")

@@ -24,7 +24,7 @@ type Handlers struct {
 }
 
 func NewService() *Handlers {
-	option := water.ServerLimiter(time.Second, 10000)
+	option := water.ServerLimiter(time.Millisecond, 1000)
 	return &Handlers{
 		index:      water.NewHandler(&service.IndexService{ServerBase: &water.ServerBase{}}, option),
 		reward:     water.NewHandler(&service.RewardService{ServerBase: &water.ServerBase{}}, option),

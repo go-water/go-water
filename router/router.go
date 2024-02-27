@@ -19,6 +19,7 @@ func Start() {
 	router.StaticFile("/placeholder.jpg", "./public/placeholder.jpg")
 	router.HTMLRender = createMyRender()
 
+	router.Use(middleware.TraceApi)
 	router.GET("/", H.Index)
 	router.GET("/doc", H.ListDoc)
 	router.GET("/doc/{id}", H.GetDoc)

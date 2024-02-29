@@ -17,7 +17,7 @@ func (h *Handlers) Index(ctx *water.Context) {
 	}
 
 	if result, ok := resp.([]byte); ok {
-		ctx.HTML(http.StatusOK, "index", water.H{"body": template.HTML(result), "title": "go-water 官方网站"})
+		ctx.HTML(http.StatusOK, "index", water.H{"body": template.HTML(result), "title": "爱斯园"})
 	}
 }
 

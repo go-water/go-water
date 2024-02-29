@@ -38,23 +38,7 @@ a:hover {
     padding: 0;
 }
 
-#header {
-    background-color: #fefefe;
-    padding: 0;
-    text-align: center;
-    overflow: hidden;
-    border-bottom: 1px solid #dee3eb;
-    margin-bottom: 10px;
-}
-
 .linker a { color:#C32528;font-weight:300;padding-left: 15px; }
-
-#footer {
-    margin: 10px auto 0 auto;
-    background-color: #fefefe;
-    clear: both;
-    max-width: 1300px;
-}
 
 .title {
     font-size: 20px !important;

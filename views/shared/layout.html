@@ -10,14 +10,14 @@
     <title>{{.title}}</title>
 </head>
 <body spellcheck="false">
-<div class="d-flex flex-column h-100 main-layout">
+<div class="d-flex flex-column h-100">
     {{template "_header" .}}
-<div class="d-flex flex-fill my-3 w-100 bg-white">
-    {{template "content" .}}
-</div>
-<div class="w-100">
-    {{template "_footer" .}}
-</div>
+    <div class="d-flex flex-fill my-3 w-100 bg-white main-layout">
+        {{template "content" .}}
+    </div>
+    <div class="w-100">
+        {{template "_footer" .}}
+    </div>
 </div>
 </body>
 </html>

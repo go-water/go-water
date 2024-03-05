@@ -48,7 +48,7 @@ $(document).ready(function(){
         status: ["autosave", "lines", "words", "upload-image"],
         spellChecker: false,
         toolbar: ['undo', 'redo', '|', 'bold', 'italic', 'strikethrough', 'heading-1', 'heading-2', 'heading-3', '|', 'image', 'code', 'quote', 'link', 'clean-block', 'ordered-list', 'unordered-list', '|', 'upload-image', 'table','preview', 'side-by-side', 'fullscreen', '|', 'guide'],
-        imageUploadEndpoint: "/api/upload",
+        imageUploadEndpoint: "/admin/upload",
         imagePathAbsolute: true,
         imageCSRFHeader: true,
         imageCSRFName: "Authorization",

@@ -10,18 +10,14 @@ import (
 	"time"
 )
 
-func (h *Handlers) Upload(ctx *water.Context) {
-	result := struct {
-		Default string `json:"default"`
-	}{""}
-
-	file, err := ctx.FormFile("file")
+func (*Handlers) Upload(ctx *water.Context) {
+	file, err := ctx.FormFile("image")
 	if err != nil {
 		ctx.JSON(http.StatusForbidden, err)
 		return
 	}
 
-	dir := "/upload/" + time.Now().Format("2006") + "/" + time.Now().Format("0102") + "/"
+	dir := "/images/" + time.Now().Format("20060102") + "/"
 	err = os.MkdirAll("./public"+dir, os.ModePerm)
 	if err != nil {
 		ctx.JSON(http.StatusForbidden, err)
@@ -29,13 +25,11 @@ func (h *Handlers) Upload(ctx *water.Context) {
 	}
 
 	url := dir + uuid.New().String() + strings.ToLower(path.Ext(file.Filename))
-
 	dst := "./public/" + url
-	result.Default = url
 	err = ctx.SaveUploadedFile(file, dst)
 	if err != nil {
 		ctx.JSON(http.StatusForbidden, err)
 	}
 
-	ctx.JSON(http.StatusOK, result)
+	ctx.JSON(http.StatusOK, water.H{"filePath": url})
 }

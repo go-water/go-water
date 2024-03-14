@@ -45,4 +45,4 @@ require (
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
 
-replace github.com/go-water/water v0.9.1 => ../water
+//replace github.com/go-water/water v0.9.1 => ../water

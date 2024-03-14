@@ -43,7 +43,7 @@ func Start() {
 		admin.GET("/list", H.List)
 	}
 
-	router.Serve(":80")
+	router.Run(":80")
 }
 
 func createMyRender() multitemplate.Renderer {

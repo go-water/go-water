@@ -5,7 +5,7 @@ go 1.22
 require (
 	github.com/go-gorp/gorp/v3 v3.1.0
 	github.com/go-sql-driver/mysql v1.8.0
-	github.com/go-water/water v0.9.1
+	github.com/go-water/water v0.9.2
 	github.com/google/uuid v1.6.0
 	github.com/jinzhu/copier v0.4.0
 	github.com/sony/gobreaker v0.5.0
@@ -45,4 +45,4 @@ require (
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
 
-//replace github.com/go-water/water v0.9.1 => ../water
+//replace github.com/go-water/water v0.9.2 => ../water

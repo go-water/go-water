@@ -21,5 +21,6 @@ mysql:
 + 手动添加几条数据供 demo 使用
 + 请确保 80 端口没有被别的服务占用，然后在浏览器中输入：http://localhost
 
-### 官方文档
-+ https://go-water.cn
+### 官方网站
++ https://iissy.com
++ https://jitask.com

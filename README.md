@@ -14,11 +14,10 @@ mysql:
     conn_max_lifetime: 100
     is_show_log: false
 ```
-手动创建文件，修改数据库配置
+手动创建文件，并修改修改数据库账号，密码
 
 ### 安装步骤
-+ 根据 model/article，model/auth 创建数据表
-+ 手动添加几条数据供 demo 使用
++ 数据库初始化文件 init.sql，可以一键创建数据库 go-water
 + 请确保 80 端口没有被别的服务占用，然后在浏览器中输入：http://localhost
 
 ### 官方网站
